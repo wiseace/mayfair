@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservations - Mayfair Hotel</title>
+  <link rel="stylesheet" href="../design-system/tokens.css">
+  <link rel="stylesheet" href="../design-system/components.css">
+  <link rel="stylesheet" href="../design-system/utilities.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swapdisplay=swapdisplay=swap" rel="stylesheet">
+  <style>
+    .app-layout { display: flex; min-height: 100vh; }
+    .main-content { flex: 1; margin-left: 280px; background: var(--color-neutral-50); }
+    .page-content { padding: 24px; }
+    .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .page-title { font-size: 24px; font-weight: 700; color: var(--color-neutral-900); }
+    .filter-bar { display: flex; gap: 16px; margin-bottom: 24px; background: white; padding: 16px; border-radius: 12px; border: 1px solid var(--color-neutral-200); }
+    .filter-bar .form-input, .filter-bar .form-select { width: 200px; }
+    .calendar-view { background: white; border-radius: 16px; border: 1px solid var(--color-neutral-200); overflow: hidden; }
+    .calendar-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; background: var(--color-neutral-50); border-bottom: 1px solid var(--color-neutral-200); }
+    .calendar-title { font-size: 18px; font-weight: 600; }
+    .calendar-nav { display: flex; align-items: center; gap: 16px; }
+    .calendar-grid { display: grid; grid-template-columns: 120px repeat(7, 1fr); }
+    .calendar-room-header { padding: 12px; font-weight: 600; font-size: 13px; color: var(--color-neutral-600); background: var(--color-neutral-50); border-bottom: 1px solid var(--color-neutral-200); border-right: 1px solid var(--color-neutral-200); }
+    .calendar-day-header { padding: 12px; text-align: center; font-size: 13px; background: var(--color-neutral-50); border-bottom: 1px solid var(--color-neutral-200); }
+    .calendar-day-header .day-name { color: var(--color-neutral-500); }
+    .calendar-day-header .day-num { font-weight: 600; color: var(--color-neutral-800); font-size: 16px; }
+    .calendar-day-header.today { background: var(--color-primary-50); }
+    .calendar-day-header.today .day-num { color: var(--color-primary-800); }
+    .calendar-room { padding: 8px 12px; font-size: 13px; font-weight: 500; border-bottom: 1px solid var(--color-neutral-100); border-right: 1px solid var(--color-neutral-200); display: flex; align-items: center; gap: 8px; }
+    .room-type-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .room-type-dot.suite { background: var(--color-accent-500); }
+    .room-type-dot.deluxe { background: var(--color-primary-800); }
+    .room-type-dot.standard { background: var(--color-neutral-400); }
+    .calendar-cell { padding: 4px; min-height: 48px; border-bottom: 1px solid var(--color-neutral-100); position: relative; }
+    .booking-bar { position: absolute; top: 8px; height: 32px; border-radius: 6px; padding: 0 8px; display: flex; align-items: center; font-size: 12px; font-weight: 500; color: white; cursor: pointer; z-index: 1; }
+    .booking-bar.confirmed { background: var(--color-primary-800); }
+    .booking-bar.pending { background: var(--color-warning-500); }
+    .booking-bar.checked-in { background: var(--color-success-500); }
+    .booking-bar span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .reservation-list { margin-top: 24px; }
+    .reservation-table { width: 100%; }
+    .reservation-table th { text-align: left; padding: 12px 16px; font-size: 13px; font-weight: 600; color: var(--color-neutral-600); background: var(--color-neutral-50); }
+    .reservation-table td { padding: 16px; border-bottom: 1px solid var(--color-neutral-100); }
+    .guest-cell { display: flex; align-items: center; gap: 12px; }
+    .guest-cell .avatar { width: 36px; height: 36px; }
+    .dates-cell { font-size: 13px; }
+    .dates-cell .check-in { color: var(--color-neutral-800); }
+    .dates-cell .nights { color: var(--color-neutral-500); font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar (same as dashboard) -->
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <div class="sidebar-logo-icon">M</div>
+          <span class="sidebar-logo-text">Mayfair Hotel</span>
+        </div>
+      </div>
+      <div class="sidebar-nav">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Main</div>
+          <a href="02-dashboard.html" class="sidebar-item">
+            <svg class="sidebar-item-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Dashboard
+          </a>
+          <a href="#" class="sidebar-item active">
+            <svg class="sidebar-item-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+            Reservations
+            <span class="sidebar-item-badge">12</span>
+          </a>
+          <a href="04-rooms.html" class="sidebar-item">
+            <svg class="sidebar-item-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            Rooms
+          </a>
+          <a href="05-guests.html" class="sidebar-item">
+            <svg class="sidebar-item-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            Guests
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1 class="topbar-title">Reservations</h1>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-search">
+            <svg class="search-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" class="form-input" placeholder="Search reservations...">
+          </div>
+          <div class="topbar-user">
+            <div class="avatar avatar-md"><img src="https://i.pravatar.cc/150?img=68" alt="User"></div>
+            <div class="topbar-user-info">
+              <span class="topbar-user-name">John Smith</span>
+              <span class="topbar-user-role">General Manager</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Reservation Calendar</h2>
+            <p class="text-muted">Manage room bookings and availability</p>
+          </div>
+          <button class="btn btn-primary">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New Reservation
+          </button>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+          <div class="form-group">
+            <label class="form-label">Room Type</label>
+            <select class="form-select">
+              <option>All Types</option>
+              <option>Suite</option>
+              <option>Deluxe</option>
+              <option>Standard</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <select class="form-select">
+              <option>All Status</option>
+              <option>Confirmed</option>
+              <option>Pending</option>
+              <option>Checked In</option>
+              <option>Cancelled</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date Range</label>
+            <input type="date" class="form-input" value="2026-01-27">
+          </div>
+          <button class="btn btn-outline" style="align-self: flex-end;">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            More Filters
+          </button>
+        </div>
+
+        <!-- Calendar View -->
+        <div class="calendar-view">
+          <div class="calendar-header">
+            <div class="calendar-nav">
+              <button class="btn btn-ghost btn-sm">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <span class="calendar-title">January 2026</span>
+              <button class="btn btn-ghost btn-sm">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-sm btn-primary">Calendar</button>
+              <button class="btn btn-sm btn-ghost">List</button>
+            </div>
+          </div>
+          <div class="calendar-grid">
+            <!-- Header Row -->
+            <div class="calendar-room-header">Room</div>
+            <div class="calendar-day-header today">
+              <div class="day-name">Mon</div>
+              <div class="day-num">27</div>
+            </div>
+            <div class="calendar-day-header">
+              <div class="day-name">Tue</div>
+              <div class="day-num">28</div>
+            </div>
+            <div class="calendar-day-header">
+              <div class="day-name">Wed</div>
+              <div class="day-num">29</div>
+            </div>
+            <div class="calendar-day-header">
+              <div class="day-name">Thu</div>
+              <div class="day-num">30</div>
+            </div>
+            <div class="calendar-day-header">
+              <div class="day-name">Fri</div>
+              <div class="day-num">31</div>
+            </div>
+            <div class="calendar-day-header">
+              <div class="day-name">Sat</div>
+              <div class="day-num">1</div>
+            </div>
+            <div class="calendar-day-header">
+              <div class="day-name">Sun</div>
+              <div class="day-num">2</div>
+            </div>
+
+            <!-- Room 101 -->
+            <div class="calendar-room"><span class="room-type-dot suite"></span>101 - Suite</div>
+            <div class="calendar-cell" style="position:relative;">
+              <div class="booking-bar confirmed" style="left:4px; width: calc(300% - 8px);"><span>E. Johnson</span></div>
+            </div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell" style="position:relative;">
+              <div class="booking-bar pending" style="left:4px; width: calc(200% - 8px);"><span>M. Davis</span></div>
+            </div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell"></div>
+
+            <!-- Room 102 -->
+            <div class="calendar-room"><span class="room-type-dot deluxe"></span>102 - Deluxe</div>
+            <div class="calendar-cell" style="position:relative;">
+              <div class="booking-bar checked-in" style="left:4px; width: calc(200% - 8px);"><span>R. Thompson</span></div>
+            </div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell" style="position:relative;">
+              <div class="booking-bar confirmed" style="left:4px; width: calc(400% - 8px);"><span>S. Williams</span></div>
+            </div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell"></div>
+
+            <!-- Room 103 -->
+            <div class="calendar-room"><span class="room-type-dot standard"></span>103 - Standard</div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell" style="position:relative;">
+              <div class="booking-bar confirmed" style="left:4px; width: calc(300% - 8px);"><span>J. Martinez</span></div>
+            </div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell"></div>
+
+            <!-- Room 104 -->
+            <div class="calendar-room"><span class="room-type-dot suite"></span>104 - Suite</div>
+            <div class="calendar-cell" style="position:relative;">
+              <div class="booking-bar checked-in" style="left:4px; width: calc(500% - 8px);"><span>A. Anderson</span></div>
+            </div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell" style="position:relative;">
+              <div class="booking-bar pending" style="left:4px; width: calc(100% - 8px);"><span>K. Lee</span></div>
+            </div>
+
+            <!-- Room 105 -->
+            <div class="calendar-room"><span class="room-type-dot deluxe"></span>105 - Deluxe</div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell" style="position:relative;">
+              <div class="booking-bar confirmed" style="left:4px; width: calc(200% - 8px);"><span>C. Brown</span></div>
+            </div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell"></div>
+            <div class="calendar-cell" style="position:relative;">
+              <div class="booking-bar confirmed" style="left:4px; width: calc(200% - 8px);"><span>D. Wilson</span></div>
+            </div>
+            <div class="calendar-cell"></div>
+          </div>
+        </div>
+
+        <!-- Reservation List -->
+        <div class="reservation-list">
+          <div class="card">
+            <div class="card-header d-flex justify-between items-center">
+              <h3 class="card-title">Upcoming Reservations</h3>
+              <span class="badge badge-primary">24 reservations</span>
+            </div>
+            <div class="table-container" style="border:none;">
+              <table class="table reservation-table">
+                <thead>
+                  <tr>
+                    <th>Guest</th>
+                    <th>Room</th>
+                    <th>Check-in / Check-out</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="guest-cell">
+                        <div class="avatar"><img src="https://i.pravatar.cc/150?img=1" alt="Guest"></div>
+                        <div>
+                          <div class="font-medium">Emily Johnson</div>
+                          <div class="text-sm text-muted">emily@email.com</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td><span class="font-medium">101</span><br><span class="text-sm text-muted">Suite</span></td>
+                    <td class="dates-cell">
+                      <div class="check-in">Jan 27 - Jan 30, 2026</div>
+                      <div class="nights">3 nights</div>
+                    </td>
+                    <td><span class="badge badge-success">Confirmed</span></td>
+                    <td class="font-semibold">$1,450</td>
+                    <td>
+                      <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-outline">View</button>
+                        <button class="btn btn-sm btn-primary">Check In</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="guest-cell">
+                        <div class="avatar"><img src="https://i.pravatar.cc/150?img=12" alt="Guest"></div>
+                        <div>
+                          <div class="font-medium">Robert Thompson</div>
+                          <div class="text-sm text-muted">robert.t@email.com</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td><span class="font-medium">102</span><br><span class="text-sm text-muted">Deluxe</span></td>
+                    <td class="dates-cell">
+                      <div class="check-in">Jan 27 - Jan 29, 2026</div>
+                      <div class="nights">2 nights</div>
+                    </td>
+                    <td><span class="badge badge-info">Checked In</span></td>
+                    <td class="font-semibold">$680</td>
+                    <td>
+                      <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-outline">View</button>
+                        <button class="btn btn-sm btn-accent">Check Out</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="guest-cell">
+                        <div class="avatar"><img src="https://i.pravatar.cc/150?img=25" alt="Guest"></div>
+                        <div>
+                          <div class="font-medium">Maria Davis</div>
+                          <div class="text-sm text-muted">maria.d@email.com</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td><span class="font-medium">101</span><br><span class="text-sm text-muted">Suite</span></td>
+                    <td class="dates-cell">
+                      <div class="check-in">Jan 31 - Feb 2, 2026</div>
+                      <div class="nights">2 nights</div>
+                    </td>
+                    <td><span class="badge badge-warning">Pending</span></td>
+                    <td class="font-semibold">$980</td>
+                    <td>
+                      <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-outline">View</button>
+                        <button class="btn btn-sm btn-success">Confirm</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

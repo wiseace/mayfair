@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=375, initial-scale=1.0">
+  <title>Mayfair - Mobile Guest App</title>
+  <link rel="stylesheet" href="../../design-system/tokens.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&family=Urbanist+Display:wght@600&display=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Urbanist',sans-serif;background:#fff;color:var(--color-neutral-800);width:375px;min-height:812px;margin:0 auto;position:relative;overflow-x:hidden}
+    .status-bar{height:44px;background:#fff;display:flex;justify-content:space-between;align-items:center;padding:0 20px;font-size:14px;font-weight:600}
+    .header{padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+    .greeting{font-size:14px;color:var(--color-neutral-500)}.greeting strong{display:block;font-size:22px;color:var(--color-neutral-900);margin-top:4px}
+    .avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;border:3px solid var(--color-primary-100)}
+    .room-card{margin:0 20px;background:linear-gradient(135deg,var(--color-primary-700),var(--color-primary-500));border-radius:24px;padding:24px;color:#fff;position:relative;overflow:hidden}
+    .room-card::before{content:'';position:absolute;right:-30px;top:-30px;width:120px;height:120px;background:rgba(255,255,255,.1);border-radius:50%}
+    .room-label{font-size:12px;opacity:.8;margin-bottom:4px}.room-number{font-size:32px;font-weight:700;margin-bottom:16px}
+    .room-info{display:flex;gap:20px;font-size:13px;opacity:.9}.room-info span{display:flex;align-items:center;gap:6px}
+    .key-btn{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px;padding:14px;background:rgba(255,255,255,.2);border-radius:14px;font-size:14px;font-weight:600}
+    .quick-actions{padding:24px 20px}
+    .section-title{font-size:16px;font-weight:600;color:var(--color-neutral-900);margin-bottom:16px}
+    .actions-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .action-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+    .action-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center}.action-icon.coral{background:linear-gradient(135deg,#ff6b6b,#ee5a5a);color:#fff}.action-icon.teal{background:linear-gradient(135deg,#2bcbba,#26de81);color:#fff}.action-icon.blue{background:linear-gradient(135deg,#45aaf2,#4a90e2);color:#fff}.action-icon.orange{background:linear-gradient(135deg,#ff9f43,#feca57);color:#fff}.action-icon.purple{background:linear-gradient(135deg,#a55eea,#8854d0);color:#fff}.action-icon.pink{background:linear-gradient(135deg,#fd79a8,#e84393);color:#fff}.action-icon svg{width:24px;height:24px}
+    .action-label{font-size:11px;color:var(--color-neutral-600);text-align:center}
+    .stay-info{padding:0 20px 24px}
+    .info-card{background:var(--color-neutral-50);border-radius:20px;padding:20px}
+    .info-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--color-neutral-200)}.info-row:last-child{border-bottom:none}
+    .info-label{font-size:13px;color:var(--color-neutral-500);display:flex;align-items:center;gap:8px}.info-label svg{width:18px;height:18px}
+    .info-value{font-size:14px;font-weight:600;color:var(--color-neutral-800)}
+    .services{padding:0 20px 100px}
+    .service-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+    .service-scroll::-webkit-scrollbar{display:none}
+    .service-card{flex-shrink:0;width:140px;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+    .service-image{height:100px;position:relative}.service-image img{width:100%;height:100%;object-fit:cover}
+    .service-content{padding:12px}.service-name{font-size:13px;font-weight:600;color:var(--color-neutral-800)}.service-price{font-size:12px;color:var(--color-neutral-800);margin-top:4px}
+    .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:375px;background:#fff;border-top:1px solid var(--color-neutral-100);padding:8px 20px 28px;display:flex;justify-content:space-around}
+    .nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:var(--color-neutral-400);font-size:10px;font-weight:500}
+    .nav-item.active{color:var(--color-neutral-800)}
+    .nav-icon{width:24px;height:24px}
+  </style>
+</head>
+<body>
+  <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+  <header class="header">
+    <div class="greeting">Good Morning<strong>John Smith</strong></div>
+    <img src="https://i.pravatar.cc/96?img=8" class="avatar" alt="Avatar">
+  </header>
+  <div class="room-card">
+    <div class="room-label">Your Room</div>
+    <div class="room-number">1205</div>
+    <div class="room-info"><span><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Floor 12</span><span><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/></svg>King Bed</span><span><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>City View</span></div>
+    <div class="key-btn"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>Open Room</div>
+  </div>
+  <div class="quick-actions">
+    <h2 class="section-title">Quick Actions</h2>
+    <div class="actions-grid">
+      <a href="#" class="action-item"><div class="action-icon coral"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div><span class="action-label">Room Service</span></a>
+      <a href="#" class="action-item"><div class="action-icon teal"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M12 22V8M5 12H2a10 10 0 0 0 20 0h-3"/></svg></div><span class="action-label">Spa</span></a>
+      <a href="#" class="action-item"><div class="action-icon blue"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><span class="action-label">Concierge</span></a>
+      <a href="#" class="action-item"><div class="action-icon orange"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg></div><span class="action-label">Checkout</span></a>
+    </div>
+    <div class="actions-grid" style="margin-top:12px">
+      <a href="#" class="action-item"><div class="action-icon purple"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><span class="action-label">Gym</span></a>
+      <a href="#" class="action-item"><div class="action-icon pink"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><span class="action-label">Explore</span></a>
+      <a href="#" class="action-item"><div class="action-icon" style="background:linear-gradient(135deg,#636e72,#2d3436);color:#fff"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/></svg></div><span class="action-label">Transport</span></a>
+      <a href="#" class="action-item"><div class="action-icon" style="background:linear-gradient(135deg,#00b894,#00cec9);color:#fff"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div><span class="action-label">Pool</span></a>
+    </div>
+  </div>
+  <div class="stay-info">
+    <h2 class="section-title">Stay Details</h2>
+    <div class="info-card">
+      <div class="info-row"><span class="info-label"><svg fill="none" stroke="var(--color-icon-purple)" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>Check-in</span><span class="info-value">Mon, Jan 27</span></div>
+      <div class="info-row"><span class="info-label"><svg fill="none" stroke="var(--color-icon-coral)" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>Check-out</span><span class="info-value">Thu, Jan 30</span></div>
+      <div class="info-row"><span class="info-label"><svg fill="none" stroke="var(--color-icon-teal)" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><circle cx="12" cy="20" r="1"/></svg>WiFi</span><span class="info-value">Mayfair2026</span></div>
+    </div>
+  </div>
+  <div class="services">
+    <h2 class="section-title">Recommended</h2>
+    <div class="service-scroll">
+      <div class="service-card"><div class="service-image"><img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=300&q=80" alt="Spa"></div><div class="service-content"><div class="service-name">Signature Massage</div><div class="service-price">From $120</div></div></div>
+      <div class="service-card"><div class="service-image"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300&q=80" alt="Dining"></div><div class="service-content"><div class="service-name">Fine Dining</div><div class="service-price">From $85</div></div></div>
+      <div class="service-card"><div class="service-image"><img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=300&q=80" alt="Pool"></div><div class="service-content"><div class="service-name">Pool & Cabana</div><div class="service-price">Complimentary</div></div></div>
+    </div>
+  </div>
+  <nav class="bottom-nav">
+    <a href="#" class="nav-item active"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Home</a>
+    <a href="#" class="nav-item"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Explore</a>
+    <a href="#" class="nav-item"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Key</a>
+    <a href="#" class="nav-item"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Chat</a>
+    <a href="#" class="nav-item"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</a>
+  </nav>
+</body>
+</html>
