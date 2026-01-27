@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Mayfair Hotel</title>
+  <link rel="stylesheet" href="../../design-system/tokens.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Urbanist', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #ffffff 100%); color: var(--color-neutral-800); min-height: 100vh; }
+    
+    /* Header */
+    .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 60px; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-icon { width: 44px; height: 44px; background: #fff; border: 2px solid var(--color-neutral-200); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--color-neutral-800); font-family: 'Urbanist', sans-serif; font-size: 24px; font-weight: 700; }
+    .logo-text { font-family: 'Urbanist', sans-serif; font-size: 24px; font-weight: 600; color: var(--color-neutral-900); }
+    .back-btn { padding: 10px 20px; background: var(--color-neutral-100); border: 1px solid var(--color-neutral-200); border-radius: 10px; text-decoration: none; color: var(--color-neutral-700); font-weight: 500; transition: all 0.2s; }
+    .back-btn:hover { background: var(--color-neutral-200); transform: translateY(-1px); }
+    
+    /* Main Content */
+    .main-content { padding: 120px 60px 60px; max-width: 1200px; margin: 0 auto; }
+    .page-title { font-size: 48px; font-weight: 700; color: var(--color-neutral-900); margin-bottom: 16px; }
+    .page-subtitle { font-size: 18px; color: var(--color-neutral-600); margin-bottom: 48px; }
+    
+    /* Contact Grid */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .contact-info { background: #fff; border-radius: 20px; padding: 40px; border: 1px solid var(--color-neutral-200); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    .contact-form { background: #fff; border-radius: 20px; padding: 40px; border: 1px solid var(--color-neutral-200); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    
+    .section-title { font-size: 24px; font-weight: 600; color: var(--color-neutral-900); margin-bottom: 24px; }
+    .contact-item { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .contact-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .contact-text h4 { font-size: 16px; font-weight: 600; color: var(--color-neutral-900); margin-bottom: 4px; }
+    .contact-text p { font-size: 14px; color: var(--color-neutral-600); }
+    
+    /* Form Styles */
+    .form-group { margin-bottom: 24px; }
+    .form-label { display: block; font-size: 14px; font-weight: 600; color: var(--color-neutral-700); margin-bottom: 8px; }
+    .form-input, .form-textarea { width: 100%; padding: 14px 16px; border: 2px solid var(--color-neutral-200); border-radius: 12px; font-size: 15px; transition: all 0.2s; outline: none; font-family: 'Urbanist', sans-serif; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--color-neutral-500); box-shadow: 0 0 0 4px rgba(0,0,0,0.1); }
+    .form-textarea { min-height: 120px; resize: vertical; }
+    .submit-btn { width: 100%; padding: 16px; background: var(--color-neutral-800); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .submit-btn:hover { background: var(--color-neutral-700); transform: translateY(-2px); }
+    
+    /* Map Section */
+    .map-section { background: #fff; border-radius: 20px; padding: 40px; border: 1px solid var(--color-neutral-200); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    .map-placeholder { width: 100%; height: 400px; background: linear-gradient(135deg, #f8fafc, #e2e8f0); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--color-neutral-600); font-size: 18px; margin-top: 24px; }
+    
+    /* Emergency Contact */
+    .emergency-card { background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: white; border-radius: 20px; padding: 32px; text-align: center; margin-top: 48px; }
+    .emergency-title { font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+    .emergency-number { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+    .emergency-description { font-size: 14px; opacity: 0.9; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">M</div>
+      <span class="logo-text">Mayfair</span>
+    </div>
+    <a href="01-landing.html" class="back-btn">← Back to Hotel</a>
+  </header>
+
+  <main class="main-content">
+    <h1 class="page-title">Get in Touch</h1>
+    <p class="page-subtitle">We're here to help you 24/7. Reach out to us through any of the following channels</p>
+    
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h2 class="section-title">Contact Information</h2>
+        
+        <div class="contact-item">
+          <div class="contact-icon" style="background: linear-gradient(135deg, #26de81, #2bcbba); color: white;">
+            <div class="icon icon-phone"></div>
+          </div>
+          <div class="contact-text">
+            <h4>Phone</h4>
+            <p>+1 (555) 123-4567</p>
+            <p>24/7 Hotline</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon" style="background: linear-gradient(135deg, #45aaf2, #4a90e2); color: white;">
+            <div class="icon icon-mail"></div>
+          </div>
+          <div class="contact-text">
+            <h4>Email</h4>
+            <p>info@mayfairhotel.com</p>
+            <p>Response within 2 hours</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon" style="background: linear-gradient(135deg, #feca57, #ff9f43); color: white;">
+            <div class="icon icon-map-pin"></div>
+          </div>
+          <div class="contact-text">
+            <h4>Address</h4>
+            <p>123 Luxury Lane</p>
+            <p>New York, NY 10001</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon" style="background: linear-gradient(135deg, #a55eea, #8854d0); color: white;">
+            <div class="icon icon-message-circle"></div>
+          </div>
+          <div class="contact-text">
+            <h4>Live Chat</h4>
+            <p>Available 24/7</p>
+            <p>Average response: 30 seconds</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="contact-form">
+        <h2 class="section-title">Send us a Message</h2>
+        <form onsubmit="alert('Thank you for your message! We will respond within 2 hours.'); return false;">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-input" placeholder="John Doe" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" placeholder="john@example.com" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input type="text" class="form-input" placeholder="How can we help you?" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" placeholder="Tell us more about your inquiry..." required></textarea>
+          </div>
+          
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </div>
+    </div>
+    
+    <div class="map-section">
+      <h2 class="section-title">Find Us</h2>
+      <div class="map-placeholder">
+        📍 Interactive Map View - 123 Luxury Lane, New York, NY 10001
+      </div>
+    </div>
+    
+    <div class="emergency-card">
+      <h2 class="emergency-title">Emergency Contact</h2>
+      <div class="emergency-number">+1 (555) 911-HELP</div>
+      <p class="emergency-description">For urgent matters requiring immediate assistance</p>
+    </div>
+  </main>
+</body>
+</html>

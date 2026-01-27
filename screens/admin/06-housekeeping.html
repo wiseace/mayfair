@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Housekeeping - Mayfair Hotel</title>
+  <link rel="stylesheet" href="../../design-system/tokens.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&family=Urbanist+Display:wght@600&display=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Urbanist',sans-serif;background:var(--color-neutral-50);display:flex;min-height:100vh}
+    .sidebar{width:280px;background:linear-gradient(180deg,var(--color-primary-800) 0%,var(--color-primary-900) 100%);color:#fff;padding:24px 16px;position:fixed;height:100vh}
+    .sidebar-logo{display:flex;align-items:center;gap:12px;padding:0 8px 24px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:24px}
+    .logo-icon{width:44px;height:44px;background:var(--color-neutral-200);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Urbanist',sans-serif;font-size:24px;font-weight:700}
+    .logo-text{font-family:'Urbanist',sans-serif;font-size:20px;font-weight:600}
+    .nav-item{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;color:rgba(255,255,255,.7);text-decoration:none;margin-bottom:4px;transition:all .2s}
+    .nav-item:hover{background:rgba(255,255,255,.1);color:#fff}.nav-item.active{background:rgba(255,255,255,.15);color:#fff}
+    .nav-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+    .nav-icon.coral{background:linear-gradient(135deg,#ff6b6b,#ee5a5a)}.nav-icon.purple{background:linear-gradient(135deg,#a55eea,#8854d0)}
+    .nav-icon svg{width:18px;height:18px;color:#fff}
+    .nav-text{font-size:14px;font-weight:500}
+    .main{flex:1;margin-left:280px;padding:24px 32px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
+    .page-title{font-size:28px;font-weight:700;color:var(--color-neutral-900)}
+    .stats-row{display:flex;gap:16px;margin-bottom:32px}
+    .stat-card{background:#fff;border-radius:16px;padding:20px;flex:1;display:flex;align-items:center;gap:16px}
+    .stat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+    .stat-icon.orange{background:linear-gradient(135deg,#ff9f43,#feca57)}.stat-icon.teal{background:linear-gradient(135deg,#2bcbba,#26de81)}.stat-icon.blue{background:linear-gradient(135deg,#45aaf2,#4a90e2)}.stat-icon.coral{background:linear-gradient(135deg,#ff6b6b,#ee5a5a)}
+    .stat-icon svg{width:22px;height:22px;color:#fff}
+    .stat-value{font-size:24px;font-weight:700;color:var(--color-neutral-900)}.stat-label{font-size:13px;color:var(--color-neutral-500)}
+    .kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .kanban-column{background:#fff;border-radius:20px;padding:20px}
+    .column-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+    .column-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600}
+    .column-dot{width:10px;height:10px;border-radius:50%}.column-dot.pending{background:#ff9f43}.column-dot.progress{background:#45aaf2}.column-dot.review{background:#a55eea}.column-dot.done{background:#26de81}
+    .column-count{padding:4px 10px;background:var(--color-neutral-100);border-radius:20px;font-size:12px;font-weight:600;color:var(--color-neutral-600)}
+    .task-card{background:var(--color-neutral-50);border-radius:14px;padding:16px;margin-bottom:12px;cursor:grab;transition:all .2s}
+    .task-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
+    .task-room{font-size:16px;font-weight:700;color:var(--color-neutral-900);margin-bottom:4px}
+    .task-type{font-size:12px;color:var(--color-neutral-500);margin-bottom:12px}
+    .task-meta{display:flex;justify-content:space-between;align-items:center}
+    .task-priority{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600}.task-priority.high{background:rgba(255,107,107,.15);color:#ff6b6b}.task-priority.medium{background:rgba(255,159,67,.15);color:#ff9f43}.task-priority.low{background:rgba(38,222,129,.15);color:#26de81}
+    .task-assignee{width:28px;height:28px;border-radius:50%;object-fit:cover}
+    .staff-section{margin-top:32px}
+    .section-title{font-size:18px;font-weight:600;color:var(--color-neutral-900);margin-bottom:20px}
+    .staff-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .staff-card{background:#fff;border-radius:16px;padding:20px;display:flex;align-items:center;gap:16px}
+    .staff-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover}
+    .staff-name{font-size:14px;font-weight:600;color:var(--color-neutral-800)}.staff-role{font-size:12px;color:var(--color-neutral-500)}
+    .staff-status{margin-left:auto;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600}.staff-status.active{background:rgba(38,222,129,.15);color:#26de81}.staff-status.busy{background:rgba(255,159,67,.15);color:#ff9f43}
+    .staff-tasks{margin-left:auto;font-size:12px;color:var(--color-neutral-500)}
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="logo-icon">M</div><span class="logo-text">Mayfair</span></div>
+    <a href="02-dashboard.html" class="nav-item"><div class="nav-icon coral"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><span class="nav-text">Dashboard</span></a>
+    <a href="#" class="nav-item active"><div class="nav-icon purple"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><span class="nav-text">Housekeeping</span></a>
+  </aside>
+  <main class="main">
+    <div class="topbar"><h1 class="page-title">Housekeeping</h1></div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-icon orange"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="stat-value">18</div><div class="stat-label">Pending Tasks</div></div></div>
+      <div class="stat-card"><div class="stat-icon blue"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="stat-value">12</div><div class="stat-label">In Progress</div></div></div>
+      <div class="stat-card"><div class="stat-icon teal"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="stat-value">45</div><div class="stat-label">Completed Today</div></div></div>
+      <div class="stat-card"><div class="stat-icon coral"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div><div class="stat-value">8</div><div class="stat-label">Staff On Duty</div></div></div>
+    </div>
+    <div class="kanban">
+      <div class="kanban-column">
+        <div class="column-header"><span class="column-title"><span class="column-dot pending"></span>Pending</span><span class="column-count">6</span></div>
+        <div class="task-card"><div class="task-room">Room 1204</div><div class="task-type">Checkout Cleaning</div><div class="task-meta"><span class="task-priority high">High</span><img src="https://i.pravatar.cc/56?img=1" class="task-assignee"></div></div>
+        <div class="task-card"><div class="task-room">Room 805</div><div class="task-type">Daily Service</div><div class="task-meta"><span class="task-priority medium">Medium</span><img src="https://i.pravatar.cc/56?img=5" class="task-assignee"></div></div>
+        <div class="task-card"><div class="task-room">Room 612</div><div class="task-type">Turndown Service</div><div class="task-meta"><span class="task-priority low">Low</span><img src="https://i.pravatar.cc/56?img=8" class="task-assignee"></div></div>
+      </div>
+      <div class="kanban-column">
+        <div class="column-header"><span class="column-title"><span class="column-dot progress"></span>In Progress</span><span class="column-count">4</span></div>
+        <div class="task-card"><div class="task-room">Room 1107</div><div class="task-type">Deep Cleaning</div><div class="task-meta"><span class="task-priority high">High</span><img src="https://i.pravatar.cc/56?img=12" class="task-assignee"></div></div>
+        <div class="task-card"><div class="task-room">Room 903</div><div class="task-type">Checkout Cleaning</div><div class="task-meta"><span class="task-priority medium">Medium</span><img src="https://i.pravatar.cc/56?img=15" class="task-assignee"></div></div>
+      </div>
+      <div class="kanban-column">
+        <div class="column-header"><span class="column-title"><span class="column-dot review"></span>Review</span><span class="column-count">3</span></div>
+        <div class="task-card"><div class="task-room">Room 502</div><div class="task-type">Daily Service</div><div class="task-meta"><span class="task-priority low">Low</span><img src="https://i.pravatar.cc/56?img=20" class="task-assignee"></div></div>
+        <div class="task-card"><div class="task-room">Room 1201</div><div class="task-type">VIP Preparation</div><div class="task-meta"><span class="task-priority high">High</span><img src="https://i.pravatar.cc/56?img=25" class="task-assignee"></div></div>
+      </div>
+      <div class="kanban-column">
+        <div class="column-header"><span class="column-title"><span class="column-dot done"></span>Done</span><span class="column-count">8</span></div>
+        <div class="task-card"><div class="task-room">Room 708</div><div class="task-type">Checkout Cleaning</div><div class="task-meta"><span class="task-priority medium">Medium</span><img src="https://i.pravatar.cc/56?img=30" class="task-assignee"></div></div>
+        <div class="task-card"><div class="task-room">Room 411</div><div class="task-type">Daily Service</div><div class="task-meta"><span class="task-priority low">Low</span><img src="https://i.pravatar.cc/56?img=35" class="task-assignee"></div></div>
+      </div>
+    </div>
+    <div class="staff-section">
+      <h2 class="section-title">Staff Overview</h2>
+      <div class="staff-grid">
+        <div class="staff-card"><img src="https://i.pravatar.cc/96?img=1" class="staff-avatar"><div><div class="staff-name">Maria Santos</div><div class="staff-role">Senior Housekeeper</div></div><div class="staff-status active">Available</div></div>
+        <div class="staff-card"><img src="https://i.pravatar.cc/96?img=5" class="staff-avatar"><div><div class="staff-name">James Wilson</div><div class="staff-role">Housekeeper</div></div><div class="staff-status busy">3 Tasks</div></div>
+        <div class="staff-card"><img src="https://i.pravatar.cc/96?img=12" class="staff-avatar"><div><div class="staff-name">Ana Garcia</div><div class="staff-role">Housekeeper</div></div><div class="staff-status busy">2 Tasks</div></div>
+        <div class="staff-card"><img src="https://i.pravatar.cc/96?img=20" class="staff-avatar"><div><div class="staff-name">David Kim</div><div class="staff-role">Housekeeper</div></div><div class="staff-status active">Available</div></div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

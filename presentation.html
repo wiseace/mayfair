@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mayfair Hotel System - Presentation</title>
+  <link rel="stylesheet" href="design-system/tokens.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&family=Urbanist+Display:wght@600;700&display=swapdisplay=swapdisplay=swapdisplay=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Urbanist',sans-serif;background:linear-gradient(135deg,var(--color-primary-900) 0%,var(--color-primary-800) 100%);min-height:100vh;color:#fff}
+    .presenter{max-width:1400px;margin:0 auto;padding:40px 20px}
+    .header{text-align:center;margin-bottom:60px}
+    .logo{width:100px;height:100px;background:var(--color-neutral-200);border-radius:24px;display:flex;align-items:center;justify-content:center;font-family:'Urbanist',sans-serif;font-size:48px;font-weight:700;margin:0 auto 24px}
+    .title{font-family:'Urbanist',sans-serif;font-size:48px;font-weight:700;margin-bottom:16px}
+    .subtitle{font-size:20px;opacity:.8}
+    .screens-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-bottom:40px}
+    .screen-card{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:20px;padding:24px;transition:all .3s;cursor:pointer;border:1px solid rgba(255,255,255,.2)}
+    .screen-card:hover{transform:translateY(-8px);background:rgba(255,255,255,.15);box-shadow:0 20px 40px rgba(0,0,0,.3)}
+    .screen-preview{width:100%;height:200px;background:#000;border-radius:12px;margin-bottom:16px;overflow:hidden;position:relative}
+    .screen-preview iframe{width:100%;height:100%;border:none;transform:scale(.8);transform-origin:top left}
+    .screen-title{font-size:18px;font-weight:600;margin-bottom:8px}
+    .screen-desc{font-size:14px;opacity:.7}
+    .flow-section{margin-bottom:40px}
+    .flow-title{font-size:24px;font-weight:600;margin-bottom:24px;text-align:center}
+    .flow-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+    .flow-step{background:rgba(255,255,255,.05);border-radius:16px;padding:20px;text-align:center;border:1px solid rgba(255,255,255,.1)}
+    .step-number{width:40px;height:40px;background:var(--color-neutral-200);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;margin:0 auto 12px}
+    .step-title{font-size:16px;font-weight:600;margin-bottom:8px}
+    .step-desc{font-size:13px;opacity:.7}
+    .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:40px}
+    .stat-card{text-align:center;padding:24px;background:rgba(255,255,255,.05);border-radius:16px;border:1px solid rgba(255,255,255,.1)}
+    .stat-value{font-size:36px;font-weight:700;color:var(--color-primary-300);margin-bottom:8px}
+    .stat-label{font-size:14px;opacity:.7}
+    .tech-stack{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:40px}
+    .tech-badge{padding:8px 16px;background:rgba(255,255,255,.1);border-radius:20px;font-size:13px;border:1px solid rgba(255,255,255,.2)}
+    @media (max-width:768px){.title{font-size:32px}.screens-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="presenter">
+    <div class="header">
+      <div class="logo">M</div>
+      <h1 class="title">Mayfair Hotel Management System</h1>
+      <p class="subtitle">Complete UI Redesign with Royal Deep Purple Theme</p>
+    </div>
+    
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-value">24</div><div class="stat-label">Total Screens</div></div>
+      <div class="stat-card"><div class="stat-value">15</div><div class="stat-label">Guest Screens</div></div>
+      <div class="stat-card"><div class="stat-value">9</div><div class="stat-label">Admin Screens</div></div>
+      <div class="stat-card"><div class="stat-value">100%</div><div class="stat-label">Responsive</div></div>
+    </div>
+    
+    <div class="flow-section">
+      <h2 class="flow-title">Guest Booking Flow</h2>
+      <div class="flow-grid">
+        <div class="flow-step"><div class="step-number">1</div><div class="step-title">Discovery</div><div class="step-desc">Landing & Room Search</div></div>
+        <div class="flow-step"><div class="step-number">2</div><div class="step-title">Selection</div><div class="step-desc">Room Details & Booking</div></div>
+        <div class="flow-step"><div class="step-number">3</div><div class="step-title">Payment</div><div class="step-desc">Secure Checkout</div></div>
+        <div class="flow-step"><div class="step-number">4</div><div class="step-title">Pre-Stay</div><div class="step-desc">Check-in & Digital Key</div></div>
+        <div class="flow-step"><div class="step-number">5</div><div class="step-title">During Stay</div><div class="step-desc">Services & Concierge</div></div>
+        <div class="flow-step"><div class="step-number">6</div><div class="step-title">Post-Stay</div><div class="step-desc">Checkout & Loyalty</div></div>
+      </div>
+    </div>
+    
+    <div class="screens-grid">
+      <div class="screen-card" onclick="window.open('screens/guest/01-landing.html', '_blank')">
+        <div class="screen-preview"><iframe src="screens/guest/01-landing.html"></iframe></div>
+        <h3 class="screen-title">Landing Page</h3>
+        <p class="screen-desc">Hero section with search and features showcase</p>
+      </div>
+      <div class="screen-card" onclick="window.open('screens/guest/03-room-details.html', '_blank')">
+        <div class="screen-preview"><iframe src="screens/guest/03-room-details.html"></iframe></div>
+        <h3 class="screen-title">Room Details</h3>
+        <p class="screen-desc">Photo gallery, amenities, and booking card</p>
+      </div>
+      <div class="screen-card" onclick="window.open('screens/admin/02-dashboard.html', '_blank')">
+        <div class="screen-preview"><iframe src="screens/admin/02-dashboard.html"></iframe></div>
+        <h3 class="screen-title">Admin Dashboard</h3>
+        <p class="screen-desc">Stats, charts, and activity monitoring</p>
+      </div>
+      <div class="screen-card" onclick="window.open('screens/admin/04-rooms.html', '_blank')">
+        <div class="screen-preview"><iframe src="screens/admin/04-rooms.html"></iframe></div>
+        <h3 class="screen-title">Room Management</h3>
+        <p class="screen-desc">Floor layout with real-time room status</p>
+      </div>
+    </div>
+    
+    <div class="tech-stack">
+      <span class="tech-badge">HTML5</span>
+      <span class="tech-badge">CSS3</span>
+      <span class="tech-badge">Royal Deep Purple</span>
+      <span class="tech-badge">Vibrant Icons</span>
+      <span class="tech-badge">Responsive Design</span>
+      <span class="tech-badge">Urbanist Font</span>
+      <span class="tech-badge">Urbanist</span>
+      <span class="tech-badge">Modern Gradients</span>
+    </div>
+  </div>
+</body>
+</html>

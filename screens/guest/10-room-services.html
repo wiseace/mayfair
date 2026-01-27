@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Room Services - Mayfair Hotel</title>
+  <link rel="stylesheet" href="../../design-system/tokens.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&family=Urbanist+Display:wght@600&display=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Urbanist',sans-serif;background:var(--color-neutral-50);color:var(--color-neutral-800)}
+    .header{padding:16px 60px;display:flex;justify-content:space-between;align-items:center;background:#fff;border-bottom:1px solid var(--color-neutral-100);position:sticky;top:0;z-index:100}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none}.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--color-primary-700),var(--color-primary-500));border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Urbanist',sans-serif;font-size:20px;font-weight:700}.logo-text{font-family:'Urbanist',sans-serif;font-size:22px;font-weight:600;color:var(--color-neutral-900)}
+    .room-badge{display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--color-neutral-50);border-radius:10px;font-size:14px;font-weight:600;color:var(--color-neutral-800)}.room-badge svg{width:18px;height:18px}
+    .main{max-width:1200px;margin:0 auto;padding:40px 60px;display:grid;grid-template-columns:1fr 360px;gap:40px}
+    .page-title{font-family:'Urbanist',sans-serif;font-size:32px;font-weight:600;color:var(--color-neutral-900);margin-bottom:8px}
+    .page-subtitle{font-size:15px;color:var(--color-neutral-500);margin-bottom:32px}
+    .categories{display:flex;gap:12px;margin-bottom:32px;flex-wrap:wrap}
+    .category-btn{padding:12px 20px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;border:none;background:#fff;color:var(--color-neutral-600);display:flex;align-items:center;gap:8px;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.04)}.category-btn:hover{box-shadow:0 4px 12px rgba(0,0,0,.08)}.category-btn.active{background:var(--color-neutral-800);color:#fff}.category-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center}.category-btn.active .category-icon{background:rgba(255,255,255,.2)}.category-icon.coral{background:rgba(255,107,107,.15);color:#ff6b6b}.category-icon.teal{background:rgba(43,203,186,.15);color:#2bcbba}.category-icon.blue{background:rgba(69,170,242,.15);color:#45aaf2}.category-icon.orange{background:rgba(255,159,67,.15);color:#ff9f43}.category-icon.purple{background:rgba(165,94,234,.15);color:#a55eea}.category-icon svg{width:16px;height:16px}
+    .items-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .item-card{background:#fff;border-radius:20px;overflow:hidden;transition:all .3s;cursor:pointer}.item-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.1)}
+    .item-image{height:160px;position:relative;overflow:hidden}.item-image img{width:100%;height:100%;object-fit:cover;transition:transform .5s}.item-card:hover .item-image img{transform:scale(1.1)}
+    .item-badge{position:absolute;top:12px;left:12px;padding:6px 10px;border-radius:6px;font-size:11px;font-weight:600}.item-badge.popular{background:#ff6b6b;color:#fff}.item-badge.new{background:#26de81;color:#fff}
+    .item-content{padding:20px}
+    .item-name{font-size:16px;font-weight:600;color:var(--color-neutral-900);margin-bottom:4px}
+    .item-desc{font-size:13px;color:var(--color-neutral-500);line-height:1.5;margin-bottom:12px}
+    .item-footer{display:flex;justify-content:space-between;align-items:center}
+    .item-price{font-size:18px;font-weight:700;color:var(--color-neutral-900)}
+    .item-time{font-size:12px;color:var(--color-neutral-400);display:flex;align-items:center;gap:4px}.item-time svg{width:14px;height:14px}
+    .add-btn{width:36px;height:36px;border-radius:50%;background:var(--color-neutral-800);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}.add-btn:hover{transform:scale(1.1)}
+    .cart{background:#fff;border-radius:24px;padding:28px;position:sticky;top:100px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+    .cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.cart-title{font-size:18px;font-weight:600;color:var(--color-neutral-900)}.cart-count{width:28px;height:28px;background:var(--color-neutral-700);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600}
+    .cart-items{display:flex;flex-direction:column;gap:16px;margin-bottom:24px;max-height:300px;overflow-y:auto}
+    .cart-item{display:flex;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--color-neutral-100)}
+    .cart-item-image{width:60px;height:60px;border-radius:10px;object-fit:cover;flex-shrink:0}
+    .cart-item-info{flex:1}.cart-item-name{font-size:14px;font-weight:600;color:var(--color-neutral-800)}.cart-item-price{font-size:13px;color:var(--color-neutral-500);margin-top:2px}
+    .cart-item-qty{display:flex;align-items:center;gap:8px;margin-top:8px}.qty-btn{width:28px;height:28px;border-radius:8px;border:1px solid var(--color-neutral-200);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--color-neutral-600)}.qty-value{font-size:14px;font-weight:600;min-width:20px;text-align:center}
+    .cart-summary{padding:20px;background:var(--color-neutral-50);border-radius:16px;margin-bottom:20px}
+    .summary-row{display:flex;justify-content:space-between;font-size:14px;margin-bottom:10px}.summary-row span:first-child{color:var(--color-neutral-500)}.summary-row span:last-child{font-weight:500}
+    .summary-total{display:flex;justify-content:space-between;padding-top:12px;border-top:1px solid var(--color-neutral-200);font-size:16px;font-weight:700}
+    .order-btn{width:100%;padding:16px;background:var(--color-neutral-800);color:#fff;border:none;border-radius:14px;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s}.order-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+    .delivery-note{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:13px;color:var(--color-neutral-500);justify-content:center}.delivery-note svg{width:16px;height:16px;color:#26de81}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="01-landing.html" class="logo"><div class="logo-icon">M</div><span class="logo-text">Mayfair</span></a>
+    <div class="room-badge"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Room 1205</div>
+  </header>
+  <main class="main">
+    <div class="content">
+      <h1 class="page-title">Room Service</h1>
+      <p class="page-subtitle">Order food, drinks, and amenities to your room</p>
+      <div class="categories">
+        <button class="category-btn active"><div class="category-icon coral"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div>Breakfast</button>
+        <button class="category-btn"><div class="category-icon teal"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>Lunch & Dinner</button>
+        <button class="category-btn"><div class="category-icon blue"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg></div>Beverages</button>
+        <button class="category-btn"><div class="category-icon orange"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>Amenities</button>
+        <button class="category-btn"><div class="category-icon purple"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M12 22V8M5 12H2a10 10 0 0 0 20 0h-3"/></svg></div>Spa</button>
+      </div>
+      <div class="items-grid">
+        <div class="item-card">
+          <div class="item-image"><img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=400&q=80" alt="Breakfast"><span class="item-badge popular">Popular</span></div>
+          <div class="item-content"><div class="item-name">Continental Breakfast</div><div class="item-desc">Fresh pastries, fruits, yogurt, and freshly squeezed juice</div><div class="item-footer"><div><div class="item-price">$28</div><div class="item-time"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>20-25 min</div></div><button class="add-btn"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div>
+        </div>
+        <div class="item-card">
+          <div class="item-image"><img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400&q=80" alt="Eggs Benedict"><span class="item-badge new">Chef's Pick</span></div>
+          <div class="item-content"><div class="item-name">Eggs Benedict Royale</div><div class="item-desc">Poached eggs, smoked salmon, hollandaise on brioche</div><div class="item-footer"><div><div class="item-price">$32</div><div class="item-time"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>25-30 min</div></div><button class="add-btn"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div>
+        </div>
+        <div class="item-card">
+          <div class="item-image"><img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=400&q=80" alt="Pancakes"></div>
+          <div class="item-content"><div class="item-name">Fluffy Pancakes</div><div class="item-desc">Stack of buttermilk pancakes, maple syrup, fresh berries</div><div class="item-footer"><div><div class="item-price">$22</div><div class="item-time"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>15-20 min</div></div><button class="add-btn"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div>
+        </div>
+        <div class="item-card">
+          <div class="item-image"><img src="https://images.unsplash.com/photo-1495214783159-3503fd1b572d?w=400&q=80" alt="Avocado Toast"></div>
+          <div class="item-content"><div class="item-name">Avocado Toast</div><div class="item-desc">Sourdough, smashed avocado, poached egg, chili flakes</div><div class="item-footer"><div><div class="item-price">$18</div><div class="item-time"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>10-15 min</div></div><button class="add-btn"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="cart">
+      <div class="cart-header"><h3 class="cart-title">Your Order</h3><span class="cart-count">2</span></div>
+      <div class="cart-items">
+        <div class="cart-item"><img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=120&q=80" class="cart-item-image" alt="Item"><div class="cart-item-info"><div class="cart-item-name">Continental Breakfast</div><div class="cart-item-price">$28</div><div class="cart-item-qty"><button class="qty-btn">−</button><span class="qty-value">1</span><button class="qty-btn">+</button></div></div></div>
+        <div class="cart-item"><img src="https://images.unsplash.com/photo-1495214783159-3503fd1b572d?w=120&q=80" class="cart-item-image" alt="Item"><div class="cart-item-info"><div class="cart-item-name">Avocado Toast</div><div class="cart-item-price">$18</div><div class="cart-item-qty"><button class="qty-btn">−</button><span class="qty-value">2</span><button class="qty-btn">+</button></div></div></div>
+      </div>
+      <div class="cart-summary">
+        <div class="summary-row"><span>Subtotal</span><span>$64</span></div>
+        <div class="summary-row"><span>Service charge (18%)</span><span>$11.52</span></div>
+        <div class="summary-row"><span>Delivery</span><span>Free</span></div>
+        <div class="summary-total"><span>Total</span><span>$75.52</span></div>
+      </div>
+      <button class="order-btn">Place Order — $75.52</button>
+      <div class="delivery-note"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Estimated delivery: 25-30 min</div>
+    </div>
+  </main>
+</body>
+</html>

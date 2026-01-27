@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>City View Deluxe King - Mayfair Hotel</title>
+  <link rel="stylesheet" href="../../design-system/tokens.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&family=Urbanist+Display:wght@600;700&display=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Urbanist',sans-serif;background:#fff;color:var(--color-neutral-800)}
+    .header{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 60px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.05)}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none}.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--color-primary-700),var(--color-primary-500));border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Urbanist',sans-serif;font-size:20px;font-weight:700}.logo-text{font-family:'Urbanist',sans-serif;font-size:22px;font-weight:600;color:var(--color-neutral-900)}
+    .btn{padding:10px 20px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;border:none;text-decoration:none;display:inline-flex;align-items:center;gap:8px}.btn-ghost{background:transparent;color:var(--color-neutral-700)}.btn-primary{background:var(--color-neutral-800);color:#fff}
+    .gallery{padding-top:80px;display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:280px 280px;gap:8px;height:568px}.gallery-item{overflow:hidden;cursor:pointer;position:relative}.gallery-item:first-child{grid-row:span 2}.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s}.gallery-item:hover img{transform:scale(1.05)}.gallery-overlay{position:absolute;bottom:16px;right:16px;padding:10px 16px;background:rgba(0,0,0,.7);border-radius:10px;color:#fff;font-size:14px;font-weight:500;display:flex;align-items:center;gap:8px}
+    .content{max-width:1200px;margin:0 auto;padding:48px 60px;display:grid;grid-template-columns:1fr 400px;gap:48px}
+    .room-type{font-size:14px;font-weight:600;color:var(--color-neutral-600);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}.room-title{font-family:'Urbanist',sans-serif;font-size:36px;font-weight:600;color:var(--color-neutral-900);margin-bottom:12px}
+    .room-rating{display:flex;align-items:center;gap:8px}.stars{display:flex;gap:2px}.stars svg{width:18px;height:18px;color:#feca57;fill:#feca57}.rating-text{font-size:14px;color:var(--color-neutral-600)}.rating-text strong{color:var(--color-neutral-900)}
+    .quick-features{display:flex;gap:24px;padding:24px 0;border-bottom:1px solid var(--color-neutral-100)}.quick-feature{display:flex;align-items:center;gap:12px}.quick-feature-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center}.quick-feature-icon.teal{background:rgba(43,203,186,.15);color:#2bcbba}.quick-feature-icon.blue{background:rgba(69,170,242,.15);color:#45aaf2}.quick-feature-icon.orange{background:rgba(255,159,67,.15);color:#ff9f43}.quick-feature-icon svg{width:22px;height:22px}.quick-feature-text{font-size:14px;font-weight:500;color:var(--color-neutral-800)}.quick-feature-sub{font-size:12px;color:var(--color-neutral-500)}
+    .section{padding:32px 0;border-bottom:1px solid var(--color-neutral-100)}.section:last-child{border-bottom:none}.section-title{font-size:20px;font-weight:600;color:var(--color-neutral-900);margin-bottom:16px}.description{font-size:15px;line-height:1.8;color:var(--color-neutral-600)}
+    .amenities-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.amenity-item{display:flex;align-items:center;gap:12px;padding:16px;background:var(--color-neutral-50);border-radius:12px}.amenity-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff}.amenity-icon.coral{background:linear-gradient(135deg,#ff6b6b,#ee5a5a)}.amenity-icon.teal{background:linear-gradient(135deg,#2bcbba,#26de81)}.amenity-icon.blue{background:linear-gradient(135deg,#45aaf2,#4a90e2)}.amenity-icon.orange{background:linear-gradient(135deg,#ff9f43,#feca57)}.amenity-icon.purple{background:linear-gradient(135deg,#a55eea,#8854d0)}.amenity-icon.pink{background:linear-gradient(135deg,#fd79a8,#e84393)}.amenity-icon svg{width:18px;height:18px}.amenity-text{font-size:14px;font-weight:500;color:var(--color-neutral-700)}
+    .booking-card{position:sticky;top:100px;background:#fff;border-radius:24px;padding:28px;box-shadow:0 10px 40px rgba(0,0,0,.1);border:1px solid var(--color-neutral-100)}.booking-price{display:flex;align-items:baseline;gap:8px;margin-bottom:24px}.price-amount{font-size:36px;font-weight:700;color:var(--color-neutral-900)}.price-period{font-size:16px;color:var(--color-neutral-500)}.price-original{font-size:18px;color:var(--color-neutral-400);text-decoration:line-through}
+    .booking-dates{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}.date-field{padding:16px;border:2px solid var(--color-neutral-200);border-radius:14px;cursor:pointer;transition:all .2s}.date-field:hover{border-color:var(--color-neutral-300)}.date-label{font-size:11px;font-weight:600;color:var(--color-neutral-500);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}.date-value{font-size:15px;font-weight:500;color:var(--color-neutral-800)}.guests-field{padding:16px;border:2px solid var(--color-neutral-200);border-radius:14px;margin-bottom:20px;cursor:pointer}.guests-field:hover{border-color:var(--color-neutral-300)}
+    .booking-btn{width:100%;padding:18px;background:var(--color-neutral-800);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s}.booking-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    .booking-summary{margin-top:20px;padding-top:20px;border-top:1px solid var(--color-neutral-100)}.summary-row{display:flex;justify-content:space-between;font-size:14px;margin-bottom:12px}.summary-row span:first-child{color:var(--color-neutral-600)}.summary-row span:last-child{color:var(--color-neutral-800);font-weight:500}.summary-total{display:flex;justify-content:space-between;padding-top:12px;border-top:1px solid var(--color-neutral-200);font-size:16px;font-weight:600}
+    .booking-note{display:flex;align-items:center;gap:8px;margin-top:20px;padding:12px 16px;background:rgba(38,222,129,.1);border-radius:10px;font-size:13px;color:#26de81}.booking-note svg{width:18px;height:18px;flex-shrink:0}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="01-landing.html" class="logo"><div class="logo-icon">M</div><span class="logo-text">Mayfair</span></a>
+    <div style="display:flex;align-items:center;gap:16px"><a href="#" class="btn btn-ghost">Help</a><a href="#" class="btn btn-primary">Sign In</a></div>
+  </header>
+  <section class="gallery">
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1200&q=80" alt="Room"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80" alt="View"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&q=80" alt="Bath"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=600&q=80" alt="Desk"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80" alt="City"><div class="gallery-overlay"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>24 photos</div></div>
+  </section>
+  <div class="content">
+    <div class="room-info">
+      <div class="room-type">Deluxe Room</div>
+      <h1 class="room-title">City View Deluxe King</h1>
+      <div class="room-rating"><div class="stars"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><span class="rating-text"><strong>4.9</strong> (128 reviews)</span></div>
+      <div class="quick-features">
+        <div class="quick-feature"><div class="quick-feature-icon teal"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div><div class="quick-feature-text">2 Guests</div><div class="quick-feature-sub">Max occupancy</div></div></div>
+        <div class="quick-feature"><div class="quick-feature-icon blue"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/></svg></div><div><div class="quick-feature-text">King Bed</div><div class="quick-feature-sub">Premium mattress</div></div></div>
+        <div class="quick-feature"><div class="quick-feature-icon orange"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><div><div class="quick-feature-text">35 m²</div><div class="quick-feature-sub">Room size</div></div></div>
+      </div>
+      <div class="section"><h2 class="section-title">About this room</h2><p class="description">Experience urban luxury in our City View Deluxe King room. Wake up to stunning panoramic city views through floor-to-ceiling windows. The room features a plush king-sized bed with premium linens, a spacious work desk, and a marble bathroom with rainfall shower. Perfect for both business and leisure travelers seeking comfort and style.</p></div>
+      <div class="section"><h2 class="section-title">Amenities</h2>
+        <div class="amenities-grid">
+          <div class="amenity-item"><div class="amenity-icon coral"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div><span class="amenity-text">High-Speed WiFi</span></div>
+          <div class="amenity-item"><div class="amenity-icon teal"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div><span class="amenity-text">55" Smart TV</span></div>
+          <div class="amenity-item"><div class="amenity-icon blue"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div><span class="amenity-text">Climate Control</span></div>
+          <div class="amenity-item"><div class="amenity-icon orange"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div><span class="amenity-text">Coffee Machine</span></div>
+          <div class="amenity-item"><div class="amenity-icon purple"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div><span class="amenity-text">In-Room Safe</span></div>
+          <div class="amenity-item"><div class="amenity-icon pink"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><span class="amenity-text">Rainfall Shower</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="booking-card">
+      <div class="booking-price"><span class="price-original">$350</span><span class="price-amount">$289</span><span class="price-period">/ night</span></div>
+      <div class="booking-dates"><div class="date-field"><div class="date-label">Check In</div><div class="date-value">Mon, Jan 27, 2026</div></div><div class="date-field"><div class="date-label">Check Out</div><div class="date-value">Thu, Jan 30, 2026</div></div></div>
+      <div class="guests-field"><div class="date-label">Guests</div><div class="date-value">2 Adults</div></div>
+      <button class="booking-btn">Reserve Now — $867</button>
+      <div class="booking-summary">
+        <div class="summary-row"><span>$289 × 3 nights</span><span>$867</span></div>
+        <div class="summary-row"><span>Service fee</span><span>$52</span></div>
+        <div class="summary-row"><span>Taxes</span><span>$110</span></div>
+        <div class="summary-total"><span>Total</span><span>$1,029</span></div>
+      </div>
+      <div class="booking-note"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Free cancellation before Jan 25</div>
+    </div>
+  </div>
+</body>
+</html>

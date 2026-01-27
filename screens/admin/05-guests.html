@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guest Management - Mayfair Hotel</title>
+  <link rel="stylesheet" href="../../design-system/tokens.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&family=Urbanist+Display:wght@600&display=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Urbanist',sans-serif;background:var(--color-neutral-50);display:flex;min-height:100vh}
+    .sidebar{width:280px;background:linear-gradient(180deg,var(--color-primary-800) 0%,var(--color-primary-900) 100%);color:#fff;padding:24px 16px;display:flex;flex-direction:column;position:fixed;height:100vh}
+    .sidebar-logo{display:flex;align-items:center;gap:12px;padding:0 8px 24px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:24px}
+    .logo-icon{width:44px;height:44px;background:var(--color-neutral-200);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Urbanist',sans-serif;font-size:24px;font-weight:700}
+    .logo-text{font-family:'Urbanist',sans-serif;font-size:20px;font-weight:600}
+    .nav-item{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;color:rgba(255,255,255,.7);text-decoration:none;margin-bottom:4px;transition:all .2s}
+    .nav-item:hover{background:rgba(255,255,255,.1);color:#fff}.nav-item.active{background:rgba(255,255,255,.15);color:#fff}
+    .nav-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .nav-icon.coral{background:linear-gradient(135deg,#ff6b6b,#ee5a5a)}.nav-icon.teal{background:linear-gradient(135deg,#2bcbba,#26de81)}.nav-icon.blue{background:linear-gradient(135deg,#45aaf2,#4a90e2)}.nav-icon.orange{background:linear-gradient(135deg,#ff9f43,#feca57)}
+    .nav-icon svg{width:18px;height:18px;color:#fff}
+    .nav-text{font-size:14px;font-weight:500}
+    .main{flex:1;margin-left:280px;padding:24px 32px;display:grid;grid-template-columns:1fr 400px;gap:32px}
+    .content{}.sidebar-panel{}
+    .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+    .page-title{font-size:28px;font-weight:700;color:var(--color-neutral-900)}
+    .search-box{display:flex;align-items:center;gap:8px;padding:12px 16px;background:#fff;border:1px solid var(--color-neutral-200);border-radius:12px;width:300px}
+    .search-box input{border:none;outline:none;font-size:14px;flex:1}
+    .guests-table{background:#fff;border-radius:20px;overflow:hidden}
+    .table-header{display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 80px;padding:16px 24px;background:var(--color-neutral-50);font-size:12px;font-weight:600;color:var(--color-neutral-500);text-transform:uppercase}
+    .table-row{display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 80px;padding:16px 24px;border-bottom:1px solid var(--color-neutral-100);align-items:center;cursor:pointer;transition:all .2s}
+    .table-row:hover{background:var(--color-neutral-50)}
+    .table-row.selected{background:var(--color-neutral-50);border-left:3px solid var(--color-primary-700)}
+    .guest-info{display:flex;align-items:center;gap:12px}
+    .guest-avatar{width:44px;height:44px;border-radius:50%;object-fit:cover}
+    .guest-name{font-size:14px;font-weight:600;color:var(--color-neutral-800)}.guest-email{font-size:12px;color:var(--color-neutral-500)}
+    .tier-badge{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600}.tier-badge.gold{background:linear-gradient(135deg,#feca57,#ff9f43);color:#fff}.tier-badge.silver{background:linear-gradient(135deg,#c0c0c0,#a8a8a8);color:#fff}.tier-badge.platinum{background:linear-gradient(135deg,#a55eea,#8854d0);color:#fff}
+    .guest-panel{background:#fff;border-radius:24px;padding:28px;position:sticky;top:24px}
+    .panel-header{display:flex;align-items:center;gap:16px;padding-bottom:24px;border-bottom:1px solid var(--color-neutral-100);margin-bottom:24px}
+    .panel-avatar{width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid var(--color-primary-200)}
+    .panel-name{font-size:20px;font-weight:700;color:var(--color-neutral-900)}.panel-email{font-size:13px;color:var(--color-neutral-500);margin-top:4px}
+    .panel-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+    .panel-stat{text-align:center;padding:16px;background:var(--color-neutral-50);border-radius:12px}
+    .panel-stat-value{font-size:20px;font-weight:700;color:var(--color-neutral-900)}.panel-stat-label{font-size:11px;color:var(--color-neutral-500);margin-top:4px}
+    .panel-section{margin-bottom:24px}
+    .panel-section-title{font-size:13px;font-weight:600;color:var(--color-neutral-500);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    .panel-section-title svg{width:16px;height:16px}
+    .info-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--color-neutral-100)}.info-row:last-child{border-bottom:none}
+    .info-label{font-size:13px;color:var(--color-neutral-500)}.info-value{font-size:13px;font-weight:500;color:var(--color-neutral-800)}
+    .preferences-tags{display:flex;flex-wrap:wrap;gap:8px}
+    .pref-tag{padding:6px 12px;background:var(--color-neutral-100);border-radius:20px;font-size:12px;color:var(--color-neutral-600)}
+    .panel-actions{display:flex;gap:12px}
+    .action-btn{flex:1;padding:12px;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;border:none}
+    .action-btn.primary{background:var(--color-neutral-800);color:#fff}
+    .action-btn.secondary{background:#fff;border:2px solid var(--color-neutral-200);color:var(--color-neutral-700)}
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="logo-icon">M</div><span class="logo-text">Mayfair</span></div>
+    <a href="02-dashboard.html" class="nav-item"><div class="nav-icon coral"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><span class="nav-text">Dashboard</span></a>
+    <a href="03-reservations.html" class="nav-item"><div class="nav-icon teal"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg></div><span class="nav-text">Reservations</span></a>
+    <a href="04-rooms.html" class="nav-item"><div class="nav-icon blue"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><span class="nav-text">Rooms</span></a>
+    <a href="#" class="nav-item active"><div class="nav-icon orange"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><span class="nav-text">Guests</span></a>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <div class="topbar"><h1 class="page-title">Guests</h1><div class="search-box"><svg width="18" height="18" fill="none" stroke="var(--color-neutral-400)" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" placeholder="Search guests..."></div></div>
+      <div class="guests-table">
+        <div class="table-header"><span>Guest</span><span>Contact</span><span>Tier</span><span>Stays</span><span></span></div>
+        <div class="table-row selected"><div class="guest-info"><img src="https://i.pravatar.cc/80?img=8" class="guest-avatar"><div><div class="guest-name">John Smith</div><div class="guest-email">john.smith@email.com</div></div></div><span style="font-size:13px;color:var(--color-neutral-600)">+1 234 567 8901</span><span class="tier-badge gold">Gold</span><span style="font-size:14px;font-weight:600">12</span><svg width="20" height="20" fill="none" stroke="var(--color-neutral-400)" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        <div class="table-row"><div class="guest-info"><img src="https://i.pravatar.cc/80?img=5" class="guest-avatar"><div><div class="guest-name">Emma Wilson</div><div class="guest-email">emma.w@email.com</div></div></div><span style="font-size:13px;color:var(--color-neutral-600)">+1 345 678 9012</span><span class="tier-badge platinum">Platinum</span><span style="font-size:14px;font-weight:600">28</span><svg width="20" height="20" fill="none" stroke="var(--color-neutral-400)" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        <div class="table-row"><div class="guest-info"><img src="https://i.pravatar.cc/80?img=12" class="guest-avatar"><div><div class="guest-name">Michael Chen</div><div class="guest-email">m.chen@email.com</div></div></div><span style="font-size:13px;color:var(--color-neutral-600)">+1 456 789 0123</span><span class="tier-badge silver">Silver</span><span style="font-size:14px;font-weight:600">5</span><svg width="20" height="20" fill="none" stroke="var(--color-neutral-400)" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        <div class="table-row"><div class="guest-info"><img src="https://i.pravatar.cc/80?img=20" class="guest-avatar"><div><div class="guest-name">Sarah Davis</div><div class="guest-email">sarah.d@email.com</div></div></div><span style="font-size:13px;color:var(--color-neutral-600)">+1 567 890 1234</span><span class="tier-badge gold">Gold</span><span style="font-size:14px;font-weight:600">15</span><svg width="20" height="20" fill="none" stroke="var(--color-neutral-400)" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        <div class="table-row"><div class="guest-info"><img src="https://i.pravatar.cc/80?img=25" class="guest-avatar"><div><div class="guest-name">Robert Garcia</div><div class="guest-email">r.garcia@email.com</div></div></div><span style="font-size:13px;color:var(--color-neutral-600)">+1 678 901 2345</span><span class="tier-badge silver">Silver</span><span style="font-size:14px;font-weight:600">3</span><svg width="20" height="20" fill="none" stroke="var(--color-neutral-400)" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </div>
+    </div>
+    <div class="guest-panel">
+      <div class="panel-header"><img src="https://i.pravatar.cc/160?img=8" class="panel-avatar"><div><div class="panel-name">John Smith</div><div class="panel-email">john.smith@email.com</div><span class="tier-badge gold" style="margin-top:8px;display:inline-block">Gold Member</span></div></div>
+      <div class="panel-stats">
+        <div class="panel-stat"><div class="panel-stat-value">12</div><div class="panel-stat-label">Total Stays</div></div>
+        <div class="panel-stat"><div class="panel-stat-value">$8.5k</div><div class="panel-stat-label">Lifetime Value</div></div>
+        <div class="panel-stat"><div class="panel-stat-value">4.9</div><div class="panel-stat-label">Avg Rating</div></div>
+      </div>
+      <div class="panel-section">
+        <div class="panel-section-title"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Contact Information</div>
+        <div class="info-row"><span class="info-label">Phone</span><span class="info-value">+1 234 567 8901</span></div>
+        <div class="info-row"><span class="info-label">Address</span><span class="info-value">123 Main St, New York</span></div>
+        <div class="info-row"><span class="info-label">Member Since</span><span class="info-value">March 2024</span></div>
+      </div>
+      <div class="panel-section">
+        <div class="panel-section-title"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Preferences</div>
+        <div class="preferences-tags">
+          <span class="pref-tag">High Floor</span>
+          <span class="pref-tag">King Bed</span>
+          <span class="pref-tag">City View</span>
+          <span class="pref-tag">Late Checkout</span>
+          <span class="pref-tag">Extra Pillows</span>
+        </div>
+      </div>
+      <div class="panel-actions">
+        <button class="action-btn secondary"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit</button>
+        <button class="action-btn primary"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>New Booking</button>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

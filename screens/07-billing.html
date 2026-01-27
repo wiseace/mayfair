@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Billing & Invoices - Mayfair Hotel</title>
+  <link rel="stylesheet" href="../design-system/tokens.css">
+  <link rel="stylesheet" href="../design-system/components.css">
+  <link rel="stylesheet" href="../design-system/utilities.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swapdisplay=swapdisplay=swap" rel="stylesheet">
+  <style>
+    .app-layout { display: flex; min-height: 100vh; }
+    .main-content { flex: 1; margin-left: 280px; background: var(--color-neutral-50); }
+    .page-content { padding: 24px; }
+    .billing-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+    .invoice-card { background: white; border-radius: 16px; border: 1px solid var(--color-neutral-200); }
+    .invoice-header { padding: 24px; border-bottom: 1px solid var(--color-neutral-100); display: flex; justify-content: space-between; align-items: flex-start; }
+    .invoice-title { font-size: 20px; font-weight: 700; color: var(--color-neutral-900); }
+    .invoice-number { font-size: 14px; color: var(--color-neutral-500); margin-top: 4px; }
+    .invoice-status { padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; }
+    .invoice-status.paid { background: var(--color-success-100); color: var(--color-success-700); }
+    .invoice-status.pending { background: var(--color-warning-100); color: var(--color-warning-700); }
+    .invoice-status.overdue { background: var(--color-error-100); color: var(--color-error-700); }
+    .invoice-details { padding: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; border-bottom: 1px solid var(--color-neutral-100); }
+    .detail-group { }
+    .detail-label { font-size: 12px; color: var(--color-neutral-500); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .detail-value { font-size: 14px; font-weight: 500; color: var(--color-neutral-800); }
+    .invoice-items { padding: 24px; }
+    .items-table { width: 100%; }
+    .items-table th { text-align: left; padding: 12px 0; font-size: 12px; font-weight: 600; color: var(--color-neutral-500); text-transform: uppercase; border-bottom: 1px solid var(--color-neutral-200); }
+    .items-table td { padding: 16px 0; border-bottom: 1px solid var(--color-neutral-100); }
+    .items-table .item-name { font-weight: 500; color: var(--color-neutral-800); }
+    .items-table .item-desc { font-size: 13px; color: var(--color-neutral-500); }
+    .items-table .text-right { text-align: right; }
+    .invoice-totals { padding: 24px; background: var(--color-neutral-50); }
+    .totals-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; }
+    .totals-row.total { font-size: 18px; font-weight: 700; color: var(--color-neutral-900); padding-top: 16px; margin-top: 8px; border-top: 2px solid var(--color-neutral-300); }
+    .invoice-actions { padding: 24px; display: flex; gap: 12px; justify-content: flex-end; border-top: 1px solid var(--color-neutral-100); }
+    .payment-panel { background: white; border-radius: 16px; border: 1px solid var(--color-neutral-200); }
+    .panel-header { padding: 20px 24px; border-bottom: 1px solid var(--color-neutral-100); }
+    .panel-title { font-size: 16px; font-weight: 600; color: var(--color-neutral-900); }
+    .panel-body { padding: 24px; }
+    .payment-method { display: flex; align-items: center; gap: 12px; padding: 16px; border: 1px solid var(--color-neutral-200); border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s; }
+    .payment-method:hover { border-color: var(--color-primary-300); background: var(--color-primary-50); }
+    .payment-method.selected { border-color: var(--color-primary-800); background: var(--color-primary-50); }
+    .payment-icon { width: 48px; height: 32px; background: var(--color-neutral-100); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+    .payment-info { flex: 1; }
+    .payment-name { font-weight: 500; color: var(--color-neutral-800); }
+    .payment-detail { font-size: 13px; color: var(--color-neutral-500); }
+    .payment-radio { width: 20px; height: 20px; border: 2px solid var(--color-neutral-300); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .payment-method.selected .payment-radio { border-color: var(--color-primary-800); }
+    .payment-method.selected .payment-radio::after { content: ''; width: 10px; height: 10px; background: var(--color-primary-800); border-radius: 50%; }
+    .quick-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: white; border-radius: 12px; padding: 20px; border: 1px solid var(--color-neutral-200); }
+    .stat-label { font-size: 13px; color: var(--color-neutral-500); margin-bottom: 8px; }
+    .stat-value { font-size: 28px; font-weight: 700; }
+    .stat-value.revenue { color: var(--color-success-600); }
+    .stat-value.pending { color: var(--color-warning-600); }
+    .stat-value.overdue { color: var(--color-error-600); }
+    .recent-transactions { margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <div class="app-layout">
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <div class="sidebar-logo-icon">M</div>
+          <span class="sidebar-logo-text">Mayfair Hotel</span>
+        </div>
+      </div>
+      <div class="sidebar-nav">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Main</div>
+          <a href="02-dashboard.html" class="sidebar-item">
+            <svg class="sidebar-item-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Dashboard
+          </a>
+          <a href="03-reservations.html" class="sidebar-item">
+            <svg class="sidebar-item-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>
+            Reservations
+          </a>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Finance</div>
+          <a href="#" class="sidebar-item active">
+            <svg class="sidebar-item-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Billing
+          </a>
+          <a href="08-reports.html" class="sidebar-item">
+            <svg class="sidebar-item-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            Reports
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1 class="topbar-title">Billing & Invoices</h1>
+        </div>
+        <div class="topbar-right">
+          <button class="btn btn-outline">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export
+          </button>
+          <button class="btn btn-primary">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New Invoice
+          </button>
+          <div class="topbar-user">
+            <div class="avatar avatar-md"><img src="https://i.pravatar.cc/150?img=68" alt="User"></div>
+          </div>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+          <div class="stat-card">
+            <div class="stat-label">Today's Revenue</div>
+            <div class="stat-value revenue">$48,290</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Pending Payments</div>
+            <div class="stat-value pending">$12,450</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Overdue</div>
+            <div class="stat-value overdue">$3,280</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">This Month</div>
+            <div class="stat-value" style="color: var(--color-primary-800);">$892,340</div>
+          </div>
+        </div>
+
+        <div class="billing-grid">
+          <!-- Invoice Card -->
+          <div class="invoice-card">
+            <div class="invoice-header">
+              <div>
+                <div class="invoice-title">Guest Folio</div>
+                <div class="invoice-number">Invoice #INV-2026-0127</div>
+              </div>
+              <span class="invoice-status pending">Payment Due</span>
+            </div>
+            <div class="invoice-details">
+              <div class="detail-group">
+                <div class="detail-label">Guest</div>
+                <div class="detail-value">Emily Johnson</div>
+                <div class="detail-value" style="color: var(--color-neutral-500); font-weight: 400;">emily.johnson@email.com</div>
+              </div>
+              <div class="detail-group">
+                <div class="detail-label">Room</div>
+                <div class="detail-value">401 - Executive Suite</div>
+              </div>
+              <div class="detail-group">
+                <div class="detail-label">Check-in</div>
+                <div class="detail-value">January 27, 2026</div>
+              </div>
+              <div class="detail-group">
+                <div class="detail-label">Check-out</div>
+                <div class="detail-value">January 30, 2026</div>
+              </div>
+            </div>
+            <div class="invoice-items">
+              <table class="items-table">
+                <thead>
+                  <tr>
+                    <th>Description</th>
+                    <th>Qty</th>
+                    <th class="text-right">Rate</th>
+                    <th class="text-right">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="item-name">Executive Suite - Room 401</div>
+                      <div class="item-desc">Jan 27-30, 2026</div>
+                    </td>
+                    <td>3 nights</td>
+                    <td class="text-right">$450.00</td>
+                    <td class="text-right">$1,350.00</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="item-name">Room Service</div>
+                      <div class="item-desc">Breakfast - Jan 28</div>
+                    </td>
+                    <td>1</td>
+                    <td class="text-right">$45.00</td>
+                    <td class="text-right">$45.00</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="item-name">Spa Treatment</div>
+                      <div class="item-desc">Full Body Massage - 90 min</div>
+                    </td>
+                    <td>1</td>
+                    <td class="text-right">$180.00</td>
+                    <td class="text-right">$180.00</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="item-name">Mini Bar</div>
+                      <div class="item-desc">Various items</div>
+                    </td>
+                    <td>-</td>
+                    <td class="text-right">-</td>
+                    <td class="text-right">$65.00</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="item-name">Parking</div>
+                      <div class="item-desc">Valet parking - 3 days</div>
+                    </td>
+                    <td>3</td>
+                    <td class="text-right">$35.00</td>
+                    <td class="text-right">$105.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="invoice-totals">
+              <div class="totals-row">
+                <span>Subtotal</span>
+                <span>$1,745.00</span>
+              </div>
+              <div class="totals-row">
+                <span>Tax (12%)</span>
+                <span>$209.40</span>
+              </div>
+              <div class="totals-row">
+                <span style="color: var(--color-success-600);">Loyalty Discount (5%)</span>
+                <span style="color: var(--color-success-600);">-$87.25</span>
+              </div>
+              <div class="totals-row total">
+                <span>Total Due</span>
+                <span>$1,867.15</span>
+              </div>
+            </div>
+            <div class="invoice-actions">
+              <button class="btn btn-outline">Print</button>
+              <button class="btn btn-outline">Email</button>
+              <button class="btn btn-primary">Process Payment</button>
+            </div>
+          </div>
+
+          <!-- Payment Panel -->
+          <div>
+            <div class="payment-panel">
+              <div class="panel-header">
+                <h3 class="panel-title">Payment Method</h3>
+              </div>
+              <div class="panel-body">
+                <div class="payment-method selected">
+                  <div class="payment-icon">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                  </div>
+                  <div class="payment-info">
+                    <div class="payment-name">Credit Card on File</div>
+                    <div class="payment-detail">Visa •••• 4242</div>
+                  </div>
+                  <div class="payment-radio"></div>
+                </div>
+                <div class="payment-method">
+                  <div class="payment-icon">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                  </div>
+                  <div class="payment-info">
+                    <div class="payment-name">New Card</div>
+                    <div class="payment-detail">Enter card details</div>
+                  </div>
+                  <div class="payment-radio"></div>
+                </div>
+                <div class="payment-method">
+                  <div class="payment-icon">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  </div>
+                  <div class="payment-info">
+                    <div class="payment-name">Cash</div>
+                    <div class="payment-detail">Pay at front desk</div>
+                  </div>
+                  <div class="payment-radio"></div>
+                </div>
+                <div class="payment-method">
+                  <div class="payment-icon">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  </div>
+                  <div class="payment-info">
+                    <div class="payment-name">Direct Bill</div>
+                    <div class="payment-detail">Corporate account</div>
+                  </div>
+                  <div class="payment-radio"></div>
+                </div>
+                <button class="btn btn-accent w-full mt-4">Charge $1,867.15</button>
+              </div>
+            </div>
+
+            <!-- Recent Payments -->
+            <div class="payment-panel mt-6">
+              <div class="panel-header">
+                <h3 class="panel-title">Payment History</h3>
+              </div>
+              <div class="panel-body" style="padding: 0;">
+                <div style="padding: 16px 24px; border-bottom: 1px solid var(--color-neutral-100); display: flex; justify-content: space-between; align-items: center;">
+                  <div>
+                    <div style="font-weight: 500; color: var(--color-neutral-800);">Deposit</div>
+                    <div style="font-size: 13px; color: var(--color-neutral-500);">Jan 25, 2026</div>
+                  </div>
+                  <div style="text-align: right;">
+                    <div style="font-weight: 600; color: var(--color-success-600);">$500.00</div>
+                    <div style="font-size: 12px; color: var(--color-neutral-500);">Visa •••• 4242</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Transactions Table -->
+        <div class="recent-transactions">
+          <div class="card">
+            <div class="card-header d-flex justify-between items-center">
+              <h3 class="card-title">Recent Transactions</h3>
+              <button class="btn btn-sm btn-outline">View All</button>
+            </div>
+            <div class="table-container" style="border: none;">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Invoice</th>
+                    <th>Guest</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="font-medium">#INV-2026-0126</td>
+                    <td>Michael Chen</td>
+                    <td>Jan 26, 2026</td>
+                    <td class="font-semibold">$892.50</td>
+                    <td><span class="badge badge-success">Paid</span></td>
+                    <td><button class="btn btn-sm btn-ghost">View</button></td>
+                  </tr>
+                  <tr>
+                    <td class="font-medium">#INV-2026-0125</td>
+                    <td>Sarah Williams</td>
+                    <td>Jan 25, 2026</td>
+                    <td class="font-semibold">$1,245.00</td>
+                    <td><span class="badge badge-success">Paid</span></td>
+                    <td><button class="btn btn-sm btn-ghost">View</button></td>
+                  </tr>
+                  <tr>
+                    <td class="font-medium">#INV-2026-0124</td>
+                    <td>David Brown</td>
+                    <td>Jan 24, 2026</td>
+                    <td class="font-semibold">$680.00</td>
+                    <td><span class="badge badge-warning">Pending</span></td>
+                    <td><button class="btn btn-sm btn-ghost">View</button></td>
+                  </tr>
+                  <tr>
+                    <td class="font-medium">#INV-2026-0123</td>
+                    <td>Corporate ABC Inc.</td>
+                    <td>Jan 23, 2026</td>
+                    <td class="font-semibold">$4,520.00</td>
+                    <td><span class="badge badge-error">Overdue</span></td>
+                    <td><button class="btn btn-sm btn-ghost">View</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Billing & Invoices - Mayfair Hotel</title>
+  <link rel="stylesheet" href="../../design-system/tokens.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&family=Urbanist+Display:wght@600&display=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Urbanist',sans-serif;background:var(--color-neutral-50);display:flex;min-height:100vh}
+    .sidebar{width:280px;background:linear-gradient(180deg,var(--color-primary-800) 0%,var(--color-primary-900) 100%);color:#fff;padding:24px 16px;position:fixed;height:100vh}
+    .sidebar-logo{display:flex;align-items:center;gap:12px;padding:0 8px 24px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:24px}
+    .logo-icon{width:44px;height:44px;background:var(--color-neutral-200);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Urbanist',sans-serif;font-size:24px;font-weight:700}
+    .logo-text{font-family:'Urbanist',sans-serif;font-size:20px;font-weight:600}
+    .nav-item{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;color:rgba(255,255,255,.7);text-decoration:none;margin-bottom:4px;transition:all .2s}
+    .nav-item:hover{background:rgba(255,255,255,.1);color:#fff}.nav-item.active{background:rgba(255,255,255,.15);color:#fff}
+    .nav-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+    .nav-icon.coral{background:linear-gradient(135deg,#ff6b6b,#ee5a5a)}.nav-icon.pink{background:linear-gradient(135deg,#fd79a8,#e84393)}
+    .nav-icon svg{width:18px;height:18px;color:#fff}
+    .nav-text{font-size:14px;font-weight:500}
+    .main{flex:1;margin-left:280px;padding:24px 32px;display:grid;grid-template-columns:1fr 420px;gap:32px}
+    .topbar{grid-column:span 2;display:flex;justify-content:space-between;align-items:center}
+    .page-title{font-size:28px;font-weight:700;color:var(--color-neutral-900)}
+    .btn{padding:12px 20px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;border:none}
+    .btn-primary{background:var(--color-neutral-800);color:#fff}
+    .stats-row{grid-column:span 2;display:flex;gap:16px}
+    .stat-card{background:#fff;border-radius:16px;padding:20px;flex:1;display:flex;align-items:center;gap:16px}
+    .stat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+    .stat-icon.teal{background:linear-gradient(135deg,#2bcbba,#26de81)}.stat-icon.orange{background:linear-gradient(135deg,#ff9f43,#feca57)}.stat-icon.blue{background:linear-gradient(135deg,#45aaf2,#4a90e2)}.stat-icon.coral{background:linear-gradient(135deg,#ff6b6b,#ee5a5a)}
+    .stat-icon svg{width:22px;height:22px;color:#fff}
+    .stat-value{font-size:24px;font-weight:700;color:var(--color-neutral-900)}.stat-label{font-size:13px;color:var(--color-neutral-500)}
+    .invoices-table{background:#fff;border-radius:20px;overflow:hidden}
+    .table-header{display:grid;grid-template-columns:1fr 1.5fr 1fr 1fr 80px;padding:16px 24px;background:var(--color-neutral-50);font-size:12px;font-weight:600;color:var(--color-neutral-500);text-transform:uppercase}
+    .table-row{display:grid;grid-template-columns:1fr 1.5fr 1fr 1fr 80px;padding:16px 24px;border-bottom:1px solid var(--color-neutral-100);align-items:center;cursor:pointer;transition:all .2s}
+    .table-row:hover{background:var(--color-neutral-50)}
+    .invoice-id{font-size:14px;font-weight:600;color:var(--color-neutral-800)}
+    .guest-info{display:flex;align-items:center;gap:10px}
+    .guest-avatar{width:36px;height:36px;border-radius:50%;object-fit:cover}
+    .guest-name{font-size:14px;font-weight:500;color:var(--color-neutral-800)}
+    .status-badge{padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600}.status-badge.paid{background:rgba(38,222,129,.15);color:#26de81}.status-badge.pending{background:rgba(255,159,67,.15);color:#ff9f43}.status-badge.overdue{background:rgba(255,107,107,.15);color:#ff6b6b}
+    .invoice-detail{background:#fff;border-radius:24px;padding:28px;position:sticky;top:24px}
+    .detail-header{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:20px;border-bottom:1px solid var(--color-neutral-100);margin-bottom:20px}
+    .detail-title{font-size:13px;color:var(--color-neutral-500)}.detail-id{font-size:20px;font-weight:700;color:var(--color-neutral-900)}
+    .detail-status{padding:8px 16px;border-radius:20px;font-size:13px;font-weight:600;background:rgba(38,222,129,.15);color:#26de81}
+    .detail-guest{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+    .detail-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover}
+    .detail-name{font-size:16px;font-weight:600;color:var(--color-neutral-900)}.detail-email{font-size:13px;color:var(--color-neutral-500)}
+    .detail-section{margin-bottom:20px}
+    .section-title{font-size:12px;font-weight:600;color:var(--color-neutral-500);text-transform:uppercase;margin-bottom:12px}
+    .line-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--color-neutral-100);font-size:14px}
+    .line-item:last-child{border-bottom:none}
+    .line-item span:first-child{color:var(--color-neutral-600)}.line-item span:last-child{font-weight:500;color:var(--color-neutral-800)}
+    .detail-total{display:flex;justify-content:space-between;padding:16px;background:var(--color-neutral-50);border-radius:12px;font-size:16px;font-weight:700}
+    .detail-total span:last-child{color:var(--color-neutral-800)}
+    .detail-actions{display:flex;gap:12px;margin-top:20px}
+    .detail-btn{flex:1;padding:14px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;border:none}
+    .detail-btn.primary{background:var(--color-neutral-800);color:#fff}
+    .detail-btn.secondary{background:#fff;border:2px solid var(--color-neutral-200);color:var(--color-neutral-700)}
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="logo-icon">M</div><span class="logo-text">Mayfair</span></div>
+    <a href="02-dashboard.html" class="nav-item"><div class="nav-icon coral"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><span class="nav-text">Dashboard</span></a>
+    <a href="#" class="nav-item active"><div class="nav-icon pink"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><span class="nav-text">Billing</span></a>
+  </aside>
+  <main class="main">
+    <div class="topbar"><h1 class="page-title">Billing & Invoices</h1><button class="btn btn-primary"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New Invoice</button></div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-icon teal"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div><div class="stat-value">$124,850</div><div class="stat-label">Total Revenue</div></div></div>
+      <div class="stat-card"><div class="stat-icon orange"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="stat-value">$18,420</div><div class="stat-label">Pending</div></div></div>
+      <div class="stat-card"><div class="stat-icon coral"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg></div><div><div class="stat-value">$3,250</div><div class="stat-label">Overdue</div></div></div>
+    </div>
+    <div class="invoices-table">
+      <div class="table-header"><span>Invoice</span><span>Guest</span><span>Amount</span><span>Status</span><span></span></div>
+      <div class="table-row"><span class="invoice-id">#INV-2026-001</span><div class="guest-info"><img src="https://i.pravatar.cc/72?img=8" class="guest-avatar"><span class="guest-name">John Smith</span></div><span style="font-size:14px;font-weight:600">$1,368.86</span><span class="status-badge paid">Paid</span><svg width="20" height="20" fill="none" stroke="var(--color-neutral-400)" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+      <div class="table-row"><span class="invoice-id">#INV-2026-002</span><div class="guest-info"><img src="https://i.pravatar.cc/72?img=5" class="guest-avatar"><span class="guest-name">Emma Wilson</span></div><span style="font-size:14px;font-weight:600">$2,450.00</span><span class="status-badge pending">Pending</span><svg width="20" height="20" fill="none" stroke="var(--color-neutral-400)" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+      <div class="table-row"><span class="invoice-id">#INV-2026-003</span><div class="guest-info"><img src="https://i.pravatar.cc/72?img=12" class="guest-avatar"><span class="guest-name">Michael Chen</span></div><span style="font-size:14px;font-weight:600">$890.50</span><span class="status-badge overdue">Overdue</span><svg width="20" height="20" fill="none" stroke="var(--color-neutral-400)" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+      <div class="table-row"><span class="invoice-id">#INV-2026-004</span><div class="guest-info"><img src="https://i.pravatar.cc/72?img=20" class="guest-avatar"><span class="guest-name">Sarah Davis</span></div><span style="font-size:14px;font-weight:600">$1,125.00</span><span class="status-badge paid">Paid</span><svg width="20" height="20" fill="none" stroke="var(--color-neutral-400)" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+    </div>
+    <div class="invoice-detail">
+      <div class="detail-header"><div><div class="detail-title">Invoice</div><div class="detail-id">#INV-2026-001</div></div><span class="detail-status">Paid</span></div>
+      <div class="detail-guest"><img src="https://i.pravatar.cc/96?img=8" class="detail-avatar"><div><div class="detail-name">John Smith</div><div class="detail-email">john.smith@email.com</div></div></div>
+      <div class="detail-section"><div class="section-title">Charges</div><div class="line-item"><span>Room 1205 (3 nights)</span><span>$867.00</span></div><div class="line-item"><span>Room Service</span><span>$141.00</span></div><div class="line-item"><span>Spa - Massage</span><span>$120.00</span></div><div class="line-item"><span>Laundry</span><span>$35.00</span></div></div>
+      <div class="detail-section"><div class="section-title">Fees & Taxes</div><div class="line-item"><span>Service Charge (10%)</span><span>$116.30</span></div><div class="line-item"><span>Taxes (12%)</span><span>$139.56</span></div><div class="line-item"><span>Loyalty Discount</span><span style="color:#26de81">-$50.00</span></div></div>
+      <div class="detail-total"><span>Total</span><span>$1,368.86</span></div>
+      <div class="detail-actions"><button class="detail-btn secondary"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download</button><button class="detail-btn primary"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Send</button></div>
+    </div>
+  </main>
+</body>
+</html>

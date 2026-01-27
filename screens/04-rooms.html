@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Room Management - Mayfair Hotel</title>
+  <link rel="stylesheet" href="../design-system/tokens.css">
+  <link rel="stylesheet" href="../design-system/components.css">
+  <link rel="stylesheet" href="../design-system/utilities.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swapdisplay=swapdisplay=swap" rel="stylesheet">
+  <style>
+    .app-layout { display: flex; min-height: 100vh; }
+    .main-content { flex: 1; margin-left: 280px; background: var(--color-neutral-50); }
+    .page-content { padding: 24px; }
+    .status-legend { display: flex; gap: 24px; margin-bottom: 24px; padding: 16px 24px; background: white; border-radius: 12px; border: 1px solid var(--color-neutral-200); }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .legend-dot.available { background: var(--color-room-available); }
+    .legend-dot.occupied { background: var(--color-room-occupied); }
+    .legend-dot.reserved { background: var(--color-room-reserved); }
+    .legend-dot.checkout { background: var(--color-room-checkout); }
+    .legend-dot.cleaning { background: var(--color-room-cleaning); }
+    .legend-dot.maintenance { background: var(--color-room-maintenance); }
+    .floor-section { margin-bottom: 32px; }
+    .floor-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .floor-title { font-size: 18px; font-weight: 600; color: var(--color-neutral-800); }
+    .floor-stats { display: flex; gap: 16px; font-size: 13px; color: var(--color-neutral-500); }
+    .rooms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
+    .room-card { background: white; border-radius: 12px; border: 1px solid var(--color-neutral-200); padding: 16px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
+    .room-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .room-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+    .room-card.available::before { background: var(--color-room-available); }
+    .room-card.occupied::before { background: var(--color-room-occupied); }
+    .room-card.reserved::before { background: var(--color-room-reserved); }
+    .room-card.checkout::before { background: var(--color-room-checkout); }
+    .room-card.cleaning::before { background: var(--color-room-cleaning); }
+    .room-card.maintenance::before { background: var(--color-room-maintenance); }
+    .room-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .room-number { font-size: 20px; font-weight: 700; color: var(--color-neutral-900); }
+    .room-type { font-size: 12px; color: var(--color-neutral-500); margin-top: 2px; }
+    .room-status { font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 6px; text-transform: uppercase; }
+    .room-status.available { background: rgba(76, 175, 80, 0.15); color: var(--color-room-available); }
+    .room-status.occupied { background: rgba(33, 150, 243, 0.15); color: var(--color-room-occupied); }
+    .room-status.reserved { background: rgba(156, 39, 176, 0.15); color: var(--color-room-reserved); }
+    .room-status.checkout { background: rgba(255, 152, 0, 0.15); color: var(--color-room-checkout); }
+    .room-status.cleaning { background: rgba(255, 193, 7, 0.15); color: #b8860b; }
+    .room-status.maintenance { background: rgba(244, 67, 54, 0.15); color: var(--color-room-maintenance); }
+    .room-guest { display: flex; align-items: center; gap: 8px; padding-top: 12px; border-top: 1px solid var(--color-neutral-100); margin-top: 12px; }
+    .room-guest-name { font-size: 13px; font-weight: 500; color: var(--color-neutral-700); }
+    .room-guest-date { font-size: 11px; color: var(--color-neutral-500); }
+    .room-amenities { display: flex; gap: 6px; margin-top: 8px; }
+    .amenity-icon { width: 20px; height: 20px; color: var(--color-neutral-400); }
+    .room-price { font-size: 14px; font-weight: 600; color: var(--color-primary-800); margin-top: 8px; }
+    .quick-stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin-bottom: 24px; }
+    .quick-stat { background: white; border-radius: 12px; padding: 20px; border: 1px solid var(--color-neutral-200); text-align: center; }
+    .quick-stat-value { font-size: 28px; font-weight: 700; }
+    .quick-stat-label { font-size: 13px; color: var(--color-neutral-500); margin-top: 4px; }
+    .quick-stat.available .quick-stat-value { color: var(--color-room-available); }
+    .quick-stat.occupied .quick-stat-value { color: var(--color-room-occupied); }
+    .quick-stat.reserved .quick-stat-value { color: var(--color-room-reserved); }
+    .quick-stat.checkout .quick-stat-value { color: var(--color-room-checkout); }
+    .quick-stat.cleaning .quick-stat-value { color: #b8860b; }
+    .quick-stat.maintenance .quick-stat-value { color: var(--color-room-maintenance); }
+  </style>
+</head>
+<body>
+  <div class="app-layout">
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <div class="sidebar-logo-icon">M</div>
+          <span class="sidebar-logo-text">Mayfair Hotel</span>
+        </div>
+      </div>
+      <div class="sidebar-nav">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Main</div>
+          <a href="02-dashboard.html" class="sidebar-item">
+            <svg class="sidebar-item-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Dashboard
+          </a>
+          <a href="03-reservations.html" class="sidebar-item">
+            <svg class="sidebar-item-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+            Reservations
+          </a>
+          <a href="#" class="sidebar-item active">
+            <svg class="sidebar-item-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            Rooms
+          </a>
+          <a href="05-guests.html" class="sidebar-item">
+            <svg class="sidebar-item-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            Guests
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1 class="topbar-title">Room Management</h1>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-search">
+            <svg class="search-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" class="form-input" placeholder="Search rooms...">
+          </div>
+          <div class="topbar-user">
+            <div class="avatar avatar-md"><img src="https://i.pravatar.cc/150?img=68" alt="User"></div>
+            <div class="topbar-user-info">
+              <span class="topbar-user-name">John Smith</span>
+              <span class="topbar-user-role">General Manager</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+          <div class="quick-stat available">
+            <div class="quick-stat-value">31</div>
+            <div class="quick-stat-label">Available</div>
+          </div>
+          <div class="quick-stat occupied">
+            <div class="quick-stat-value">98</div>
+            <div class="quick-stat-label">Occupied</div>
+          </div>
+          <div class="quick-stat reserved">
+            <div class="quick-stat-value">12</div>
+            <div class="quick-stat-label">Reserved</div>
+          </div>
+          <div class="quick-stat checkout">
+            <div class="quick-stat-value">8</div>
+            <div class="quick-stat-label">Due Out</div>
+          </div>
+          <div class="quick-stat cleaning">
+            <div class="quick-stat-value">5</div>
+            <div class="quick-stat-label">Cleaning</div>
+          </div>
+          <div class="quick-stat maintenance">
+            <div class="quick-stat-value">2</div>
+            <div class="quick-stat-label">Maintenance</div>
+          </div>
+        </div>
+
+        <!-- Status Legend -->
+        <div class="status-legend">
+          <div class="legend-item"><span class="legend-dot available"></span> Available</div>
+          <div class="legend-item"><span class="legend-dot occupied"></span> Occupied</div>
+          <div class="legend-item"><span class="legend-dot reserved"></span> Reserved</div>
+          <div class="legend-item"><span class="legend-dot checkout"></span> Due Checkout</div>
+          <div class="legend-item"><span class="legend-dot cleaning"></span> Cleaning</div>
+          <div class="legend-item"><span class="legend-dot maintenance"></span> Maintenance</div>
+        </div>
+
+        <!-- Floor 1 -->
+        <div class="floor-section">
+          <div class="floor-header">
+            <h3 class="floor-title">Floor 1 - Standard Rooms</h3>
+            <div class="floor-stats">
+              <span>20 rooms</span>
+              <span>•</span>
+              <span>15 occupied</span>
+              <span>•</span>
+              <span>3 available</span>
+            </div>
+          </div>
+          <div class="rooms-grid">
+            <div class="room-card occupied">
+              <div class="room-header">
+                <div><div class="room-number">101</div><div class="room-type">Standard King</div></div>
+                <span class="room-status occupied">Occupied</span>
+              </div>
+              <div class="room-guest">
+                <div class="avatar avatar-sm"><img src="https://i.pravatar.cc/150?img=1" alt=""></div>
+                <div><div class="room-guest-name">Emily Johnson</div><div class="room-guest-date">Check-out: Jan 30</div></div>
+              </div>
+            </div>
+            <div class="room-card available">
+              <div class="room-header">
+                <div><div class="room-number">102</div><div class="room-type">Standard Twin</div></div>
+                <span class="room-status available">Available</span>
+              </div>
+              <div class="room-price">$189/night</div>
+              <div class="room-amenities">
+                <svg class="amenity-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M17 21v-4H7v4"/></svg>
+                <svg class="amenity-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/></svg>
+              </div>
+            </div>
+            <div class="room-card checkout">
+              <div class="room-header">
+                <div><div class="room-number">103</div><div class="room-type">Standard King</div></div>
+                <span class="room-status checkout">Due Out</span>
+              </div>
+              <div class="room-guest">
+                <div class="avatar avatar-sm"><img src="https://i.pravatar.cc/150?img=5" alt=""></div>
+                <div><div class="room-guest-name">Michael Chen</div><div class="room-guest-date">Due: 11:00 AM</div></div>
+              </div>
+            </div>
+            <div class="room-card cleaning">
+              <div class="room-header">
+                <div><div class="room-number">104</div><div class="room-type">Standard Twin</div></div>
+                <span class="room-status cleaning">Cleaning</span>
+              </div>
+              <div class="room-guest">
+                <div class="avatar avatar-sm" style="background: var(--color-warning-100); color: var(--color-warning-700);">HS</div>
+                <div><div class="room-guest-name">Housekeeping</div><div class="room-guest-date">Est. 45 min</div></div>
+              </div>
+            </div>
+            <div class="room-card reserved">
+              <div class="room-header">
+                <div><div class="room-number">105</div><div class="room-type">Standard King</div></div>
+                <span class="room-status reserved">Reserved</span>
+              </div>
+              <div class="room-guest">
+                <div class="avatar avatar-sm"><img src="https://i.pravatar.cc/150?img=8" alt=""></div>
+                <div><div class="room-guest-name">Sarah Williams</div><div class="room-guest-date">Check-in: 3:00 PM</div></div>
+              </div>
+            </div>
+            <div class="room-card occupied">
+              <div class="room-header">
+                <div><div class="room-number">106</div><div class="room-type">Standard Twin</div></div>
+                <span class="room-status occupied">Occupied</span>
+              </div>
+              <div class="room-guest">
+                <div class="avatar avatar-sm"><img src="https://i.pravatar.cc/150?img=11" alt=""></div>
+                <div><div class="room-guest-name">David Brown</div><div class="room-guest-date">Check-out: Feb 1</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floor 2 -->
+        <div class="floor-section">
+          <div class="floor-header">
+            <h3 class="floor-title">Floor 2 - Deluxe Rooms</h3>
+            <div class="floor-stats">
+              <span>16 rooms</span>
+              <span>•</span>
+              <span>12 occupied</span>
+              <span>•</span>
+              <span>2 available</span>
+            </div>
+          </div>
+          <div class="rooms-grid">
+            <div class="room-card occupied">
+              <div class="room-header">
+                <div><div class="room-number">201</div><div class="room-type">Deluxe King</div></div>
+                <span class="room-status occupied">Occupied</span>
+              </div>
+              <div class="room-guest">
+                <div class="avatar avatar-sm"><img src="https://i.pravatar.cc/150?img=15" alt=""></div>
+                <div><div class="room-guest-name">James Wilson</div><div class="room-guest-date">Check-out: Jan 29</div></div>
+              </div>
+            </div>
+            <div class="room-card maintenance">
+              <div class="room-header">
+                <div><div class="room-number">202</div><div class="room-type">Deluxe Twin</div></div>
+                <span class="room-status maintenance">Maintenance</span>
+              </div>
+              <div class="room-guest">
+                <div class="avatar avatar-sm" style="background: var(--color-error-100); color: var(--color-error-700);">MT</div>
+                <div><div class="room-guest-name">AC Repair</div><div class="room-guest-date">Est. 2 days</div></div>
+              </div>
+            </div>
+            <div class="room-card available">
+              <div class="room-header">
+                <div><div class="room-number">203</div><div class="room-type">Deluxe King</div></div>
+                <span class="room-status available">Available</span>
+              </div>
+              <div class="room-price">$289/night</div>
+            </div>
+            <div class="room-card occupied">
+              <div class="room-header">
+                <div><div class="room-number">204</div><div class="room-type">Deluxe Suite</div></div>
+                <span class="room-status occupied">Occupied</span>
+              </div>
+              <div class="room-guest">
+                <div class="avatar avatar-sm"><img src="https://i.pravatar.cc/150?img=20" alt=""></div>
+                <div><div class="room-guest-name">Lisa Anderson</div><div class="room-guest-date">Check-out: Feb 3</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floor 3 -->
+        <div class="floor-section">
+          <div class="floor-header">
+            <h3 class="floor-title">Floor 3 - Premium Suites</h3>
+            <div class="floor-stats">
+              <span>8 rooms</span>
+              <span>•</span>
+              <span>6 occupied</span>
+              <span>•</span>
+              <span>1 available</span>
+            </div>
+          </div>
+          <div class="rooms-grid">
+            <div class="room-card occupied">
+              <div class="room-header">
+                <div><div class="room-number">301</div><div class="room-type">Executive Suite</div></div>
+                <span class="room-status occupied">Occupied</span>
+              </div>
+              <div class="room-guest">
+                <div class="avatar avatar-sm"><img src="https://i.pravatar.cc/150?img=32" alt=""></div>
+                <div><div class="room-guest-name">Robert Martinez</div><div class="room-guest-date">Check-out: Feb 5</div></div>
+              </div>
+            </div>
+            <div class="room-card available">
+              <div class="room-header">
+                <div><div class="room-number">302</div><div class="room-type">Presidential Suite</div></div>
+                <span class="room-status available">Available</span>
+              </div>
+              <div class="room-price">$890/night</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

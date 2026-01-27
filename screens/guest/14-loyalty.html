@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mayfair Rewards - Loyalty Program</title>
+  <link rel="stylesheet" href="../../design-system/tokens.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&family=Urbanist+Display:wght@600;700&display=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Urbanist',sans-serif;background:var(--color-neutral-50);color:var(--color-neutral-800)}
+    .header{padding:16px 60px;display:flex;justify-content:space-between;align-items:center;background:#fff;border-bottom:1px solid var(--color-neutral-100)}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none}.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--color-primary-700),var(--color-primary-500));border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Urbanist',sans-serif;font-size:20px;font-weight:700}.logo-text{font-family:'Urbanist',sans-serif;font-size:22px;font-weight:600;color:var(--color-neutral-900)}
+    .nav{display:flex;gap:32px}.nav a{text-decoration:none;color:var(--color-neutral-500);font-size:14px;font-weight:500}.nav a.active{color:var(--color-neutral-800)}
+    .main{max-width:1100px;margin:0 auto;padding:40px 60px}
+    .hero-card{background:linear-gradient(135deg,var(--color-primary-800),var(--color-primary-600));border-radius:32px;padding:48px;color:#fff;margin-bottom:40px;position:relative;overflow:hidden}
+    .hero-card::before{content:'';position:absolute;right:-100px;top:-100px;width:400px;height:400px;background:rgba(255,255,255,.05);border-radius:50%}
+    .hero-card::after{content:'';position:absolute;left:-50px;bottom:-50px;width:200px;height:200px;background:rgba(255,255,255,.05);border-radius:50%}
+    .hero-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;position:relative;z-index:1}
+    .hero-user h1{font-family:'Urbanist',sans-serif;font-size:32px;font-weight:600;margin-bottom:8px}
+    .hero-user p{font-size:16px;opacity:.8}
+    .tier-badge{padding:12px 24px;background:linear-gradient(135deg,#feca57,#ff9f43);border-radius:20px;font-size:14px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
+    .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative;z-index:1}
+    .stat-item{padding:24px;background:rgba(255,255,255,.1);border-radius:20px;text-align:center}
+    .stat-value{font-size:36px;font-weight:700;margin-bottom:4px}
+    .stat-label{font-size:14px;opacity:.8}
+    .progress-section{background:#fff;border-radius:24px;padding:32px;margin-bottom:32px}
+    .progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+    .progress-title{font-size:18px;font-weight:600;color:var(--color-neutral-900)}
+    .progress-info{font-size:14px;color:var(--color-neutral-500)}
+    .tier-progress{display:flex;align-items:center;gap:16px}
+    .tier-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+    .tier-circle{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+    .tier-circle.silver{background:linear-gradient(135deg,#c0c0c0,#a8a8a8);color:#fff}
+    .tier-circle.gold{background:linear-gradient(135deg,#feca57,#ff9f43);color:#fff}
+    .tier-circle.platinum{background:linear-gradient(135deg,#a55eea,#8854d0);color:#fff}
+    .tier-circle.diamond{background:linear-gradient(135deg,#45aaf2,#4a90e2);color:#fff}
+    .tier-circle.locked{background:var(--color-neutral-200);color:var(--color-neutral-400)}
+    .tier-name{font-size:12px;font-weight:500;color:var(--color-neutral-600)}
+    .tier-line{flex:1;height:4px;background:var(--color-neutral-200);border-radius:2px;position:relative}
+    .tier-line.active{background:linear-gradient(90deg,#feca57,#ff9f43)}
+    .tier-line.half::after{content:'';position:absolute;left:0;top:0;width:50%;height:100%;background:linear-gradient(90deg,#feca57,#ff9f43);border-radius:2px}
+    .benefits{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:32px}
+    .benefit-card{background:#fff;border-radius:20px;padding:28px;display:flex;gap:20px;transition:all .3s}.benefit-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.08)}
+    .benefit-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}.benefit-icon.coral{background:linear-gradient(135deg,#ff6b6b,#ee5a5a);color:#fff}.benefit-icon.teal{background:linear-gradient(135deg,#2bcbba,#26de81);color:#fff}.benefit-icon.blue{background:linear-gradient(135deg,#45aaf2,#4a90e2);color:#fff}.benefit-icon.orange{background:linear-gradient(135deg,#ff9f43,#feca57);color:#fff}.benefit-icon.purple{background:linear-gradient(135deg,#a55eea,#8854d0);color:#fff}.benefit-icon.pink{background:linear-gradient(135deg,#fd79a8,#e84393);color:#fff}.benefit-icon svg{width:26px;height:26px}
+    .benefit-title{font-size:16px;font-weight:600;color:var(--color-neutral-900);margin-bottom:6px}
+    .benefit-desc{font-size:14px;color:var(--color-neutral-500);line-height:1.6}
+    .redeem-section{background:#fff;border-radius:24px;padding:32px}
+    .redeem-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+    .redeem-title{font-size:18px;font-weight:600;color:var(--color-neutral-900)}
+    .redeem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .redeem-card{border:2px solid var(--color-neutral-200);border-radius:16px;padding:24px;text-align:center;cursor:pointer;transition:all .2s}.redeem-card:hover{border-color:var(--color-primary-400);background:var(--color-neutral-50)}
+    .redeem-icon{width:64px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;background:var(--color-neutral-100)}
+    .redeem-icon svg{width:28px;height:28px;color:var(--color-neutral-600)}
+    .redeem-name{font-size:15px;font-weight:600;color:var(--color-neutral-800);margin-bottom:8px}
+    .redeem-points{font-size:14px;color:var(--color-neutral-800);font-weight:600}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="01-landing.html" class="logo"><div class="logo-icon">M</div><span class="logo-text">Mayfair</span></a>
+    <nav class="nav"><a href="01-landing.html">Home</a><a href="02-room-search.html" onclick="window.location.href='02-room-search.html'">Rooms</a><a href="07-my-bookings.html" onclick="window.location.href='07-my-bookings.html'">My Bookings</a><a href="#" class="active">Rewards</a></nav>
+    <div style="display:flex;align-items:center;gap:12px"><img src="https://i.pravatar.cc/80?img=8" style="width:40px;height:40px;border-radius:50%"><span style="font-size:14px;font-weight:600">John Smith</span></div>
+  </header>
+  <main class="main">
+    <div class="hero-card">
+      <div class="hero-top"><div class="hero-user"><h1>Welcome back, John!</h1><p>Gold Member since 2024</p></div><div class="tier-badge"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Gold Status</div></div>
+      <div class="hero-stats">
+        <div class="stat-item"><div class="stat-value">8,542</div><div class="stat-label">Available Points</div></div>
+        <div class="stat-item"><div class="stat-value">12</div><div class="stat-label">Nights This Year</div></div>
+        <div class="stat-item"><div class="stat-value">3</div><div class="stat-label">Nights to Platinum</div></div>
+      </div>
+    </div>
+    <div class="progress-section">
+      <div class="progress-header"><h2 class="progress-title">Your Tier Progress</h2><span class="progress-info">12 of 15 nights to Platinum</span></div>
+      <div class="tier-progress">
+        <div class="tier-item"><div class="tier-circle silver"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><span class="tier-name">Silver</span></div>
+        <div class="tier-line active"></div>
+        <div class="tier-item"><div class="tier-circle gold"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><span class="tier-name">Gold</span></div>
+        <div class="tier-line half"></div>
+        <div class="tier-item"><div class="tier-circle locked"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><span class="tier-name">Platinum</span></div>
+        <div class="tier-line"></div>
+        <div class="tier-item"><div class="tier-circle locked"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><span class="tier-name">Diamond</span></div>
+      </div>
+    </div>
+    <h2 style="font-size:20px;font-weight:600;color:var(--color-neutral-900);margin-bottom:20px">Your Gold Benefits</h2>
+    <div class="benefits">
+      <div class="benefit-card"><div class="benefit-icon coral"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div><div><div class="benefit-title">15% Off Room Rates</div><div class="benefit-desc">Exclusive discount on all room bookings, every time</div></div></div>
+      <div class="benefit-card"><div class="benefit-icon teal"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="benefit-title">Late Checkout</div><div class="benefit-desc">Complimentary late checkout until 2 PM</div></div></div>
+      <div class="benefit-card"><div class="benefit-icon blue"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div><div><div class="benefit-title">Welcome Amenity</div><div class="benefit-desc">Fresh fruit and sparkling water upon arrival</div></div></div>
+      <div class="benefit-card"><div class="benefit-icon orange"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="benefit-title">Gym Access</div><div class="benefit-desc">Free access to fitness center 24/7</div></div></div>
+      <div class="benefit-card"><div class="benefit-icon purple"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><circle cx="12" cy="20" r="1"/></svg></div><div><div class="benefit-title">Premium WiFi</div><div class="benefit-desc">High-speed internet throughout your stay</div></div></div>
+      <div class="benefit-card"><div class="benefit-icon pink"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div><div><div class="benefit-title">Room Upgrade</div><div class="benefit-desc">Complimentary upgrade when available</div></div></div>
+    </div>
+    <div class="redeem-section">
+      <div class="redeem-header"><h2 class="redeem-title">Redeem Your Points</h2><a href="#" style="color:var(--color-neutral-800);font-size:14px;font-weight:600;text-decoration:none">View All Rewards →</a></div>
+      <div class="redeem-grid">
+        <div class="redeem-card"><div class="redeem-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="redeem-name">Free Night Stay</div><div class="redeem-points">15,000 points</div></div>
+        <div class="redeem-card"><div class="redeem-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M12 22V8M5 12H2a10 10 0 0 0 20 0h-3"/></svg></div><div class="redeem-name">Spa Treatment</div><div class="redeem-points">5,000 points</div></div>
+        <div class="redeem-card"><div class="redeem-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div><div class="redeem-name">Dinner for Two</div><div class="redeem-points">8,000 points</div></div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

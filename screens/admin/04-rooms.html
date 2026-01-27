@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Room Management - Mayfair Hotel</title>
+  <link rel="stylesheet" href="../../design-system/tokens.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&family=Urbanist+Display:wght@600&display=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Urbanist',sans-serif;background:var(--color-neutral-50);display:flex;min-height:100vh}
+    .sidebar{width:280px;background:linear-gradient(180deg,var(--color-primary-800) 0%,var(--color-primary-900) 100%);color:#fff;padding:24px 16px;display:flex;flex-direction:column;position:fixed;height:100vh}
+    .sidebar-logo{display:flex;align-items:center;gap:12px;padding:0 8px 24px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:24px}
+    .logo-icon{width:44px;height:44px;background:var(--color-neutral-200);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Urbanist',sans-serif;font-size:24px;font-weight:700}
+    .logo-text{font-family:'Urbanist',sans-serif;font-size:20px;font-weight:600}
+    .nav-item{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;color:rgba(255,255,255,.7);text-decoration:none;margin-bottom:4px;transition:all .2s}
+    .nav-item:hover{background:rgba(255,255,255,.1);color:#fff}.nav-item.active{background:rgba(255,255,255,.15);color:#fff}
+    .nav-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .nav-icon.coral{background:linear-gradient(135deg,#ff6b6b,#ee5a5a)}.nav-icon.teal{background:linear-gradient(135deg,#2bcbba,#26de81)}.nav-icon.blue{background:linear-gradient(135deg,#45aaf2,#4a90e2)}.nav-icon.orange{background:linear-gradient(135deg,#ff9f43,#feca57)}
+    .nav-icon svg{width:18px;height:18px;color:#fff}
+    .nav-text{font-size:14px;font-weight:500}
+    .main{flex:1;margin-left:280px;padding:24px 32px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
+    .page-title{font-size:28px;font-weight:700;color:var(--color-neutral-900)}
+    .stats-row{display:flex;gap:16px;margin-bottom:32px}
+    .stat-pill{display:flex;align-items:center;gap:10px;padding:12px 20px;background:#fff;border-radius:14px}
+    .stat-dot{width:12px;height:12px;border-radius:50%}.stat-dot.occupied{background:#45aaf2}.stat-dot.available{background:#26de81}.stat-dot.cleaning{background:#feca57}.stat-dot.maintenance{background:#ff6b6b}
+    .stat-pill span{font-size:14px;color:var(--color-neutral-600)}.stat-pill strong{font-size:18px;font-weight:700;color:var(--color-neutral-900);margin-left:4px}
+    .floor-section{margin-bottom:32px}
+    .floor-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+    .floor-title{font-size:18px;font-weight:600;color:var(--color-neutral-900)}
+    .floor-stats{display:flex;gap:16px;font-size:13px;color:var(--color-neutral-500)}
+    .rooms-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:12px}
+    .room-card{background:#fff;border-radius:16px;padding:16px;text-align:center;cursor:pointer;transition:all .2s;border:2px solid transparent}
+    .room-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+    .room-card.occupied{border-color:#45aaf2;background:rgba(69,170,242,.05)}.room-card.available{border-color:#26de81;background:rgba(38,222,129,.05)}.room-card.cleaning{border-color:#feca57;background:rgba(254,202,87,.05)}.room-card.maintenance{border-color:#ff6b6b;background:rgba(255,107,107,.05)}
+    .room-number{font-size:18px;font-weight:700;color:var(--color-neutral-900);margin-bottom:4px}
+    .room-type{font-size:11px;color:var(--color-neutral-500);margin-bottom:8px}
+    .room-status{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600}
+    .room-status.occupied{background:rgba(69,170,242,.15);color:#45aaf2}.room-status.available{background:rgba(38,222,129,.15);color:#26de81}.room-status.cleaning{background:rgba(254,202,87,.15);color:#e67e22}.room-status.maintenance{background:rgba(255,107,107,.15);color:#ff6b6b}
+    .room-guest{margin-top:8px;font-size:12px;color:var(--color-neutral-600);display:flex;align-items:center;justify-content:center;gap:6px}
+    .room-guest img{width:20px;height:20px;border-radius:50%}
+    .legend{display:flex;gap:24px;margin-top:32px;padding:20px;background:#fff;border-radius:16px}
+    .legend-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--color-neutral-600)}
+    .legend-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+    .legend-icon.occupied{background:rgba(69,170,242,.15);color:#45aaf2}.legend-icon.available{background:rgba(38,222,129,.15);color:#26de81}.legend-icon.cleaning{background:rgba(254,202,87,.15);color:#e67e22}.legend-icon.maintenance{background:rgba(255,107,107,.15);color:#ff6b6b}
+    .legend-icon svg{width:16px;height:16px}
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="logo-icon">M</div><span class="logo-text">Mayfair</span></div>
+    <a href="02-dashboard.html" class="nav-item"><div class="nav-icon coral"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><span class="nav-text">Dashboard</span></a>
+    <a href="03-reservations.html" class="nav-item"><div class="nav-icon teal"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg></div><span class="nav-text">Reservations</span></a>
+    <a href="#" class="nav-item active"><div class="nav-icon blue"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><span class="nav-text">Rooms</span></a>
+    <a href="05-guests.html" class="nav-item"><div class="nav-icon orange"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><span class="nav-text">Guests</span></a>
+  </aside>
+  <main class="main">
+    <div class="topbar"><h1 class="page-title">Room Management</h1></div>
+    <div class="stats-row">
+      <div class="stat-pill"><span class="stat-dot occupied"></span><span>Occupied</span><strong>98</strong></div>
+      <div class="stat-pill"><span class="stat-dot available"></span><span>Available</span><strong>42</strong></div>
+      <div class="stat-pill"><span class="stat-dot cleaning"></span><span>Cleaning</span><strong>12</strong></div>
+      <div class="stat-pill"><span class="stat-dot maintenance"></span><span>Maintenance</span><strong>4</strong></div>
+    </div>
+    <div class="floor-section">
+      <div class="floor-header"><h2 class="floor-title">Floor 12 - Premium Suites</h2><div class="floor-stats"><span>6 Occupied</span><span>2 Available</span></div></div>
+      <div class="rooms-grid">
+        <div class="room-card occupied"><div class="room-number">1201</div><div class="room-type">Deluxe King</div><div class="room-status occupied">Occupied</div><div class="room-guest"><img src="https://i.pravatar.cc/40?img=1">J. Smith</div></div>
+        <div class="room-card available"><div class="room-number">1202</div><div class="room-type">Deluxe King</div><div class="room-status available">Available</div></div>
+        <div class="room-card occupied"><div class="room-number">1203</div><div class="room-type">Deluxe Twin</div><div class="room-status occupied">Occupied</div><div class="room-guest"><img src="https://i.pravatar.cc/40?img=5">E. Wilson</div></div>
+        <div class="room-card cleaning"><div class="room-number">1204</div><div class="room-type">Deluxe King</div><div class="room-status cleaning">Cleaning</div></div>
+        <div class="room-card occupied"><div class="room-number">1205</div><div class="room-type">City View King</div><div class="room-status occupied">Occupied</div><div class="room-guest"><img src="https://i.pravatar.cc/40?img=8">M. Chen</div></div>
+        <div class="room-card occupied"><div class="room-number">1206</div><div class="room-type">Deluxe Suite</div><div class="room-status occupied">Occupied</div><div class="room-guest"><img src="https://i.pravatar.cc/40?img=12">A. Brown</div></div>
+        <div class="room-card maintenance"><div class="room-number">1207</div><div class="room-type">Deluxe King</div><div class="room-status maintenance">Repair</div></div>
+        <div class="room-card available"><div class="room-number">1208</div><div class="room-type">Corner Suite</div><div class="room-status available">Available</div></div>
+      </div>
+    </div>
+    <div class="floor-section">
+      <div class="floor-header"><h2 class="floor-title">Floor 11 - Deluxe Rooms</h2><div class="floor-stats"><span>5 Occupied</span><span>3 Available</span></div></div>
+      <div class="rooms-grid">
+        <div class="room-card occupied"><div class="room-number">1101</div><div class="room-type">Deluxe King</div><div class="room-status occupied">Occupied</div><div class="room-guest"><img src="https://i.pravatar.cc/40?img=15">R. Davis</div></div>
+        <div class="room-card available"><div class="room-number">1102</div><div class="room-type">Deluxe King</div><div class="room-status available">Available</div></div>
+        <div class="room-card occupied"><div class="room-number">1103</div><div class="room-type">Deluxe Twin</div><div class="room-status occupied">Occupied</div><div class="room-guest"><img src="https://i.pravatar.cc/40?img=20">T. Miller</div></div>
+        <div class="room-card available"><div class="room-number">1104</div><div class="room-type">Deluxe King</div><div class="room-status available">Available</div></div>
+        <div class="room-card occupied"><div class="room-number">1105</div><div class="room-type">Deluxe King</div><div class="room-status occupied">Occupied</div><div class="room-guest"><img src="https://i.pravatar.cc/40?img=25">L. Garcia</div></div>
+        <div class="room-card occupied"><div class="room-number">1106</div><div class="room-type">Deluxe Twin</div><div class="room-status occupied">Occupied</div><div class="room-guest"><img src="https://i.pravatar.cc/40?img=30">K. Lee</div></div>
+        <div class="room-card cleaning"><div class="room-number">1107</div><div class="room-type">Deluxe King</div><div class="room-status cleaning">Cleaning</div></div>
+        <div class="room-card available"><div class="room-number">1108</div><div class="room-type">Deluxe Suite</div><div class="room-status available">Available</div></div>
+      </div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-icon occupied"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>Occupied - Guest staying</div>
+      <div class="legend-item"><div class="legend-icon available"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Available - Ready for check-in</div>
+      <div class="legend-item"><div class="legend-icon cleaning"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>Cleaning - Being prepared</div>
+      <div class="legend-item"><div class="legend-icon maintenance"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>Maintenance - Under repair</div>
+    </div>
+  </main>
+</body>
+</html>

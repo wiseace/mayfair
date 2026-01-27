@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mayfair Hotel Management System</title>
+  <link rel="stylesheet" href="design-system/tokens.css">
+  <link rel="stylesheet" href="design-system/icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font-family-primary);background:#fff;min-height:100vh;color:var(--color-neutral-900)}
+    .main-container{max-width:1400px;margin:0 auto;padding:40px 20px}
+    .hero{text-align:center;margin-bottom:60px}
+    .logo{width:120px;height:120px;background:#fff;border:2px solid var(--color-neutral-200);border-radius:28px;display:flex;align-items:center;justify-content:center;font-family:var(--font-family-heading);font-size:56px;font-weight:700;margin:0 auto 32px;box-shadow:0 4px 12px rgba(0,0,0,.05);color:var(--color-neutral-800)}
+    .title{font-family:var(--font-family-heading);font-size:56px;font-weight:700;margin-bottom:16px;color:var(--color-neutral-900)}
+    .subtitle{font-size:22px;color:var(--color-neutral-600);margin-bottom:40px}
+    .nav-tabs{display:flex;justify-content:center;gap:16px;margin-bottom:48px;flex-wrap:wrap}
+    .nav-tab{padding:12px 28px;border-radius:16px;font-size:15px;font-weight:600;cursor:pointer;background:#fff;border:2px solid var(--color-neutral-200);color:var(--color-neutral-700);transition:all .3s}.nav-tab:hover{background:var(--color-neutral-50);border-color:var(--color-neutral-300);transform:translateY(-2px)}.nav-tab.active{background:var(--color-neutral-800);color:#fff;border-color:transparent}
+    .content-section{display:none}.content-section.active{display:block}
+    .flow-overview{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-bottom:48px}
+    .flow-card{background:#fff;border:1px solid var(--color-neutral-200);border-radius:24px;padding:32px;text-align:center;transition:all .3s;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.05)}
+    .flow-card:hover{transform:translateY(-8px);background:#fff;border-color:var(--color-neutral-300);box-shadow:0 12px 32px rgba(0,0,0,.1)}
+    .flow-icon{width:80px;height:80px;background:#fff;border:2px solid var(--color-neutral-200);border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:36px}
+    .flow-icon.coral{background:linear-gradient(135deg,#ff6b6b,#ee5a5a)}.flow-icon.teal{background:linear-gradient(135deg,#2bcbba,#26de81)}.flow-icon.blue{background:linear-gradient(135deg,#45aaf2,#4a90e2)}.flow-icon.orange{background:linear-gradient(135deg,#ff9f43,#feca57)}.flow-icon.purple{background:linear-gradient(135deg,#a55eea,#8854d0)}.flow-icon.pink{background:linear-gradient(135deg,#fd79a8,#e84393)}
+    .flow-title{font-size:24px;font-weight:600;margin-bottom:12px;color:var(--color-neutral-900)}
+    .flow-desc{font-size:16px;color:var(--color-neutral-600);margin-bottom:20px}
+    .flow-link{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--color-neutral-800);border-radius:12px;text-decoration:none;color:#fff;font-weight:500;transition:all .2s}
+    .flow-link:hover{background:var(--color-neutral-700);transform:translateY(-2px)}
+    .screens-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:32px}
+    .screen-card{background:#fff;border:1px solid var(--color-neutral-200);border-radius:24px;padding:28px;transition:all .3s;box-shadow:0 4px 12px rgba(0,0,0,.05)}
+    .screen-card:hover{transform:translateY(-8px);background:#fff;border-color:var(--color-neutral-300);box-shadow:0 12px 32px rgba(0,0,0,.1)}
+    .screen-header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+    .screen-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px}
+    .screen-icon.guest{background:linear-gradient(135deg,#26de81,#2bcbba)}.screen-icon.admin{background:linear-gradient(135deg,#45aaf2,#4a90e2)}
+    .screen-title{font-size:20px;font-weight:600;color:var(--color-neutral-900)}
+    .screen-preview{width:100%;height:280px;background:linear-gradient(135deg,var(--color-neutral-50),var(--color-neutral-100));border-radius:16px;margin-bottom:20px;overflow:hidden;position:relative;border:1px solid var(--color-neutral-200);box-shadow:0 8px 32px rgba(0,0,0,0.08)}
+    .screen-preview-content{padding:24px;height:100%;display:flex;flex-direction:column;justify-content:space-between}
+    .preview-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .preview-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+    .preview-title h4{font-size:18px;font-weight:600;color:var(--color-neutral-900);margin-bottom:2px}
+    .preview-title p{font-size:13px;color:var(--color-neutral-600)}
+    .preview-features{display:flex;flex-direction:column;gap:8px}
+    .preview-feature{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--color-neutral-700)}
+    .preview-feature-icon{width:20px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px}
+    .preview-stats{display:flex;gap:16px;margin-top:16px}
+    .preview-stat{text-align:center}
+    .preview-stat-value{font-size:20px;font-weight:700;color:var(--color-neutral-900)}
+    .preview-stat-label{font-size:11px;color:var(--color-neutral-600);text-transform:uppercase;letter-spacing:0.5px}
+    .screen-actions{display:flex;gap:12px}
+    .btn{flex:1;padding:12px 20px;border-radius:12px;font-size:14px;font-weight:600;text-decoration:none;text-align:center;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;border:none}
+    .btn-primary{background:var(--color-neutral-800);color:#fff}
+    .btn-secondary{background:#fff;border:2px solid var(--color-neutral-200);color:var(--color-neutral-700)}
+    .btn:hover{transform:translateY(-2px)}
+    .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:48px}
+    .stat-card{text-align:center;padding:28px;background:#fff;border-radius:20px;border:1px solid var(--color-neutral-200);box-shadow:0 4px 12px rgba(0,0,0,.05)}
+    .stat-value{font-size:42px;font-weight:700;color:var(--color-neutral-800);margin-bottom:8px}
+    .stat-label{font-size:15px;color:var(--color-neutral-600)}
+    .tech-stack{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:48px}
+    .tech-badge{padding:10px 20px;background:var(--color-neutral-100);border-radius:24px;font-size:14px;color:var(--color-neutral-700);border:1px solid var(--color-neutral-200)}
+    .demo-mode{position:fixed;top:20px;right:20px;padding:12px 20px;background:var(--color-neutral-800);color:#fff;border-radius:16px;z-index:1000;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+    @media (max-width:768px){.title{font-size:36px}.subtitle{font-size:18px}.nav-tabs{gap:8px}.nav-tab{padding:10px 16px;font-size:13px}.screens-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="demo-mode">Presentation Mode</div>
+  
+  <div class="main-container">
+    <div class="hero">
+      <h1 class="title">Mayfair Hotel Management System</h1>
+      <p class="subtitle">Complete UI Redesign with Minimalist Design</p>
+      
+      <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showSection('overview')"><div class="icon icon-home" style="display:inline-block;margin-right:8px"></div>Overview</button>
+        <button class="nav-tab" onclick="showSection('guest')"><div class="icon icon-user" style="display:inline-block;margin-right:8px"></div>Guest Journey</button>
+        <button class="nav-tab" onclick="showSection('admin')"><div class="icon icon-settings" style="display:inline-block;margin-right:8px"></div>Admin Panel</button>
+        <button class="nav-tab" onclick="showSection('demo')"><div class="icon icon-dashboard" style="display:inline-block;margin-right:8px"></div>Live Demo</button>
+      </div>
+    </div>
+    
+    <div id="overview" class="content-section active">
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-value">24</div><div class="stat-label">Total Screens</div></div>
+        <div class="stat-card"><div class="stat-value">15</div><div class="stat-label">Guest Screens</div></div>
+        <div class="stat-card"><div class="stat-value">9</div><div class="stat-label">Admin Screens</div></div>
+        <div class="stat-card"><div class="stat-value">100%</div><div class="stat-label">Responsive</div></div>
+      </div>
+      
+      <div class="flow-overview">
+        <div class="flow-card" onclick="window.open('screens/guest/01-landing.html', '_blank')">
+          <div class="flow-icon"><div class="icon icon-home" style="width:48px;height:48px"></div></div>
+          <h3 class="flow-title">Discovery</h3>
+          <p class="flow-desc">Landing page & room search with filters</p>
+          <a href="screens/guest/01-landing.html" class="flow-link" target="_blank">Start Journey →</a>
+        </div>
+        <div class="flow-card" onclick="window.open('screens/guest/03-room-details.html', '_blank')">
+          <div class="flow-icon"><div class="icon icon-bed" style="width:48px;height:48px"></div></div>
+          <h3 class="flow-title">Booking</h3>
+          <p class="flow-desc">Room details, guest info, payment flow</p>
+          <a href="screens/guest/03-room-details.html" class="flow-link" target="_blank">View Rooms →</a>
+        </div>
+        <div class="flow-card" onclick="window.open('screens/guest/08-online-checkin.html', '_blank')">
+          <div class="flow-icon"><div class="icon icon-key" style="width:48px;height:48px"></div></div>
+          <h3 class="flow-title">Pre-Stay</h3>
+          <p class="flow-desc">Online check-in & digital room key</p>
+          <a href="screens/guest/08-online-checkin.html" class="flow-link" target="_blank">Check In →</a>
+        </div>
+        <div class="flow-card" onclick="window.open('screens/guest/10-room-services.html', '_blank')">
+          <div class="flow-icon"><div class="icon icon-food" style="width:48px;height:48px"></div></div>
+          <h3 class="flow-title">During Stay</h3>
+          <p class="flow-desc">Room service & concierge requests</p>
+          <a href="screens/guest/10-room-services.html" class="flow-link" target="_blank">Order Service →</a>
+        </div>
+        <div class="flow-card" onclick="window.open('screens/guest/12-checkout.html', '_blank')">
+          <div class="flow-icon"><div class="icon icon-payment" style="width:48px;height:48px"></div></div>
+          <h3 class="flow-title">Checkout</h3>
+          <p class="flow-desc">Express checkout & loyalty program</p>
+          <a href="screens/guest/12-checkout.html" class="flow-link" target="_blank">Check Out →</a>
+        </div>
+        <div class="flow-card" onclick="window.open('screens/admin/02-dashboard.html', '_blank')">
+          <div class="flow-icon"><div class="icon icon-chart" style="width:48px;height:48px"></div></div>
+          <h3 class="flow-title">Management</h3>
+          <p class="flow-desc">Admin dashboard & operations</p>
+          <a href="screens/admin/02-dashboard.html" class="flow-link" target="_blank">Admin Panel →</a>
+        </div>
+      </div>
+    </div>
+    
+    <div id="guest" class="content-section">
+      <div class="screens-grid">
+        <div class="screen-card">
+          <div class="screen-header"><div class="screen-icon"><div class="icon icon-home" style="width:24px;height:24px"></div></div><h3 class="screen-title">Landing Page</h3></div>
+          <div class="screen-preview">
+            <div class="screen-preview-content">
+              <div>
+                <div class="preview-header">
+                  <div class="preview-icon" style="background: linear-gradient(135deg, #26de81, #2bcbba); color: white;">
+                    <div class="icon icon-home"></div>
+                  </div>
+                  <div class="preview-title">
+                    <h4>Landing Experience</h4>
+                    <p>First impression matters</p>
+                  </div>
+                </div>
+                <div class="preview-features">
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: white;">✨</div>
+                    <span>Hero animations</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #45aaf2, #4a90e2); color: white;">🔍</div>
+                    <span>Smart search</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #feca57, #ff9f43); color: white;">⭐</div>
+                    <span>Featured rooms</span>
+                  </div>
+                </div>
+              </div>
+              <div class="preview-stats">
+                <div class="preview-stat">
+                  <div class="preview-stat-value">98%</div>
+                  <div class="preview-stat-label">Satisfaction</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">2.3s</div>
+                  <div class="preview-stat-label">Load Time</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">4.9</div>
+                  <div class="preview-stat-label">Rating</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-actions">
+            <a href="screens/guest/01-landing.html" target="_blank" class="btn btn-primary"><div class="icon icon-search" style="width:16px;height:16px;margin-right:4px"></div>View Full</a>
+            <a href="screens/guest/02-room-search.html" target="_blank" class="btn btn-secondary">→ Next</a>
+          </div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-header"><div class="screen-icon"><div class="icon icon-search" style="width:24px;height:24px"></div></div><h3 class="screen-title">Room Search</h3></div>
+          <div class="screen-preview">
+            <div class="screen-preview-content">
+              <div>
+                <div class="preview-header">
+                  <div class="preview-icon" style="background: linear-gradient(135deg, #45aaf2, #4a90e2); color: white;">
+                    <div class="icon icon-search"></div>
+                  </div>
+                  <div class="preview-title">
+                    <h4>Smart Search</h4>
+                    <p>Find your perfect room</p>
+                  </div>
+                </div>
+                <div class="preview-features">
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #26de81, #2bcbba); color: white;">🎯</div>
+                    <span>Advanced filters</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: white;">💎</div>
+                    <span>Real-time results</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #a55eea, #8854d0); color: white;">📊</div>
+                    <span>Price comparison</span>
+                  </div>
+                </div>
+              </div>
+              <div class="preview-stats">
+                <div class="preview-stat">
+                  <div class="preview-stat-value">150+</div>
+                  <div class="preview-stat-label">Rooms</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">0.5s</div>
+                  <div class="preview-stat-label">Response</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">24/7</div>
+                  <div class="preview-stat-label">Available</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-actions">
+            <a href="screens/guest/02-room-search.html" target="_blank" class="btn btn-primary"><div class="icon icon-search" style="width:16px;height:16px;margin-right:4px"></div>View Full</a>
+            <a href="screens/guest/03-room-details.html" target="_blank" class="btn btn-secondary">→ Next</a>
+          </div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-header"><div class="screen-icon"><div class="icon icon-bed" style="width:24px;height:24px"></div></div><h3 class="screen-title">Room Details</h3></div>
+          <div class="screen-preview">
+            <div class="screen-preview-content">
+              <div>
+                <div class="preview-header">
+                  <div class="preview-icon" style="background: linear-gradient(135deg, #feca57, #ff9f43); color: white;">
+                    <div class="icon icon-bed"></div>
+                  </div>
+                  <div class="preview-title">
+                    <h4>Room Details</h4>
+                    <p>Experience luxury living</p>
+                  </div>
+                </div>
+                <div class="preview-features">
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #26de81, #2bcbba); color: white;">📸</div>
+                    <span>360° photos</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #45aaf2, #4a90e2); color: white;">🛋️</div>
+                    <span>Amenities guide</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: white;">📅</div>
+                    <span>Live availability</span>
+                  </div>
+                </div>
+              </div>
+              <div class="preview-stats">
+                <div class="preview-stat">
+                  <div class="preview-stat-value">4K</div>
+                  <div class="preview-stat-label">Photos</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">25+</div>
+                  <div class="preview-stat-label">Features</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">⭐⭐⭐⭐⭐</div>
+                  <div class="preview-stat-label">Reviews</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-actions">
+            <a href="screens/guest/03-room-details.html" target="_blank" class="btn btn-primary"><div class="icon icon-search" style="width:16px;height:16px;margin-right:4px"></div>View Full</a>
+            <a href="screens/guest/04-booking-form.html" target="_blank" class="btn btn-secondary">→ Next</a>
+          </div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-header"><div class="screen-icon"><div class="icon icon-user" style="width:24px;height:24px"></div></div><h3 class="screen-title">Booking Form</h3></div>
+          <div class="screen-preview">
+            <div class="screen-preview-content">
+              <div>
+                <div class="preview-header">
+                  <div class="preview-icon" style="background: linear-gradient(135deg, #26de81, #2bcbba); color: white;">
+                    <div class="icon icon-user"></div>
+                  </div>
+                  <div class="preview-title">
+                    <h4>Booking Form</h4>
+                    <p>Seamless reservation</p>
+                  </div>
+                </div>
+                <div class="preview-features">
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #45aaf2, #4a90e2); color: white;">✓</div>
+                    <span>Quick checkout</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: white;">🔒</div>
+                    <span>Secure payment</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #feca57, #ff9f43); color: white;">⚡</div>
+                    <span>Instant confirm</span>
+                  </div>
+                </div>
+              </div>
+              <div class="preview-stats">
+                <div class="preview-stat">
+                  <div class="preview-stat-value">2min</div>
+                  <div class="preview-stat-label">Book Time</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">100%</div>
+                  <div class="preview-stat-label">Secure</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">24/7</div>
+                  <div class="preview-stat-label">Support</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-actions">
+            <a href="screens/guest/04-booking-form.html" target="_blank" class="btn btn-primary"><div class="icon icon-search" style="width:16px;height:16px;margin-right:4px"></div>View Full</a>
+            <a href="screens/guest/05-payment.html" target="_blank" class="btn btn-secondary">→ Next</a>
+          </div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-header"><div class="screen-icon"><div class="icon icon-payment" style="width:24px;height:24px"></div></div><h3 class="screen-title">Payment</h3></div>
+          <div class="screen-preview">
+            <div class="screen-preview-content">
+              <div>
+                <div class="preview-header">
+                  <div class="preview-icon" style="background: linear-gradient(135deg, #a55eea, #8854d0); color: white;">
+                    <div class="icon icon-credit-card"></div>
+                  </div>
+                  <div class="preview-title">
+                    <h4>Payment</h4>
+                    <p>Secure transactions</p>
+                  </div>
+                </div>
+                <div class="preview-features">
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #26de81, #2bcbba); color: white;">💳</div>
+                    <span>Multiple cards</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #45aaf2, #4a90e2); color: white;">🔐</div>
+                    <span>Bank-level security</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: white;">🎁</div>
+                    <span>Promo codes</span>
+                  </div>
+                </div>
+              </div>
+              <div class="preview-stats">
+                <div class="preview-stat">
+                  <div class="preview-stat-value">0.3s</div>
+                  <div class="preview-stat-label">Processing</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">100%</div>
+                  <div class="preview-stat-label">Encrypted</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">5+</div>
+                  <div class="preview-stat-label">Payment Methods</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-actions">
+            <a href="screens/guest/05-payment.html" target="_blank" class="btn btn-primary"><div class="icon icon-search" style="width:16px;height:16px;margin-right:4px"></div>View Full</a>
+            <a href="screens/guest/06-confirmation.html" target="_blank" class="btn btn-secondary">→ Next</a>
+          </div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-header"><div class="screen-icon"><div class="icon icon-check" style="width:24px;height:24px"></div></div><h3 class="screen-title">Confirmation</h3></div>
+          <div class="screen-preview">
+            <div class="screen-preview-content">
+              <div>
+                <div class="preview-header">
+                  <div class="preview-icon" style="background: linear-gradient(135deg, #26de81, #2bcbba); color: white;">
+                    <div class="icon icon-check"></div>
+                  </div>
+                  <div class="preview-title">
+                    <h4>Confirmation</h4>
+                    <p>Booking confirmed</p>
+                  </div>
+                </div>
+                <div class="preview-features">
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #45aaf2, #4a90e2); color: white;">📧</div>
+                    <span>Email receipt</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: white;">📱</div>
+                    <span>SMS updates</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #feca57, #ff9f43); color: white;">🎉</div>
+                    <span>Welcome gift</span>
+                  </div>
+                </div>
+              </div>
+              <div class="preview-stats">
+                <div class="preview-stat">
+                  <div class="preview-stat-value">✓</div>
+                  <div class="preview-stat-label">Confirmed</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">#A42B</div>
+                  <div class="preview-stat-label">Booking ID</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">24/7</div>
+                  <div class="preview-stat-label">Support</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-actions">
+            <a href="screens/guest/06-confirmation.html" target="_blank" class="btn btn-primary"><div class="icon icon-search" style="width:16px;height:16px;margin-right:4px"></div>View Full</a>
+            <a href="screens/guest/07-my-bookings.html" target="_blank" class="btn btn-secondary">→ Next</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="admin" class="content-section">
+      <div class="screens-grid">
+        <div class="screen-card">
+          <div class="screen-header"><div class="screen-icon"><div class="icon icon-settings" style="width:24px;height:24px"></div></div><h3 class="screen-title">Login</h3></div>
+          <div class="screen-preview">
+            <div class="screen-preview-content">
+              <div>
+                <div class="preview-header">
+                  <div class="preview-icon" style="background: linear-gradient(135deg, #45aaf2, #4a90e2); color: white;">
+                    <div class="icon icon-lock"></div>
+                  </div>
+                  <div class="preview-title">
+                    <h4>Admin Login</h4>
+                    <p>Secure access portal</p>
+                  </div>
+                </div>
+                <div class="preview-features">
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #26de81, #2bcbba); color: white;">🔐</div>
+                    <span>2FA authentication</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: white;">🛡️</div>
+                    <span>Enterprise security</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #feca57, #ff9f43); color: white;">⚡</div>
+                    <span>Instant access</span>
+                  </div>
+                </div>
+              </div>
+              <div class="preview-stats">
+                <div class="preview-stat">
+                  <div class="preview-stat-value">99.9%</div>
+                  <div class="preview-stat-label">Uptime</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">0.1s</div>
+                  <div class="preview-stat-label">Login Time</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">256-bit</div>
+                  <div class="preview-stat-label">Encryption</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-actions">
+            <a href="screens/admin/01-login.html" target="_blank" class="btn btn-primary"><div class="icon icon-search" style="width:16px;height:16px;margin-right:4px"></div>View Full</a>
+            <a href="screens/admin/02-dashboard.html" target="_blank" class="btn btn-secondary">→ Dashboard</a>
+          </div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-header"><div class="screen-icon"><div class="icon icon-dashboard" style="width:24px;height:24px"></div></div><h3 class="screen-title">Dashboard</h3></div>
+          <div class="screen-preview">
+            <div class="screen-preview-content">
+              <div>
+                <div class="preview-header">
+                  <div class="preview-icon" style="background: linear-gradient(135deg, #26de81, #2bcbba); color: white;">
+                    <div class="icon icon-dashboard"></div>
+                  </div>
+                  <div class="preview-title">
+                    <h4>Dashboard</h4>
+                    <p>Command center</p>
+                  </div>
+                </div>
+                <div class="preview-features">
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #45aaf2, #4a90e2); color: white;">📊</div>
+                    <span>Real-time analytics</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: white;">📈</div>
+                    <span>Revenue tracking</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #feca57, #ff9f43); color: white;">🏨</div>
+                    <span>Occupancy rates</span>
+                  </div>
+                </div>
+              </div>
+              <div class="preview-stats">
+                <div class="preview-stat">
+                  <div class="preview-stat-value">85%</div>
+                  <div class="preview-stat-label">Occupancy</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">$12.5K</div>
+                  <div class="preview-stat-label">Daily Revenue</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">24/7</div>
+                  <div class="preview-stat-label">Monitoring</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-actions">
+            <a href="screens/admin/02-dashboard.html" target="_blank" class="btn btn-primary"><div class="icon icon-search" style="width:16px;height:16px;margin-right:4px"></div>View Full</a>
+            <a href="screens/admin/03-reservations.html" target="_blank" class="btn btn-secondary">→ Reservations</a>
+          </div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-header"><div class="screen-icon"><div class="icon icon-calendar" style="width:24px;height:24px"></div></div><h3 class="screen-title">Reservations</h3></div>
+          <div class="screen-preview">
+            <div class="screen-preview-content">
+              <div>
+                <div class="preview-header">
+                  <div class="preview-icon" style="background: linear-gradient(135deg, #feca57, #ff9f43); color: white;">
+                    <div class="icon icon-calendar"></div>
+                  </div>
+                  <div class="preview-title">
+                    <h4>Reservations</h4>
+                    <p>Booking management</p>
+                  </div>
+                </div>
+                <div class="preview-features">
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #26de81, #2bcbba); color: white;">📅</div>
+                    <span>Calendar view</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #45aaf2, #4a90e2); color: white;">👥</div>
+                    <span>Guest details</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: white;">⚡</div>
+                    <span>Instant updates</span>
+                  </div>
+                </div>
+              </div>
+              <div class="preview-stats">
+                <div class="preview-stat">
+                  <div class="preview-stat-value">142</div>
+                  <div class="preview-stat-label">Today</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">28</div>
+                  <div class="preview-stat-label">Pending</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">98%</div>
+                  <div class="preview-stat-label">Accuracy</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-actions">
+            <a href="screens/admin/03-reservations.html" target="_blank" class="btn btn-primary"><div class="icon icon-search" style="width:16px;height:16px;margin-right:4px"></div>View Full</a>
+            <a href="screens/admin/04-rooms.html" target="_blank" class="btn btn-secondary">→ Rooms</a>
+          </div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-header"><div class="screen-icon"><div class="icon icon-bed" style="width:24px;height:24px"></div></div><h3 class="screen-title">Room Management</h3></div>
+          <div class="screen-preview">
+            <div class="screen-preview-content">
+              <div>
+                <div class="preview-header">
+                  <div class="preview-icon" style="background: linear-gradient(135deg, #a55eea, #8854d0); color: white;">
+                    <div class="icon icon-home"></div>
+                  </div>
+                  <div class="preview-title">
+                    <h4>Room Management</h4>
+                    <p>Inventory control</p>
+                  </div>
+                </div>
+                <div class="preview-features">
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #26de81, #2bcbba); color: white;">🏠</div>
+                    <span>Floor plans</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #45aaf2, #4a90e2); color: white;">🔧</div>
+                    <span>Maintenance</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: white;">📊</div>
+                    <span>Status tracking</span>
+                  </div>
+                </div>
+              </div>
+              <div class="preview-stats">
+                <div class="preview-stat">
+                  <div class="preview-stat-value">150</div>
+                  <div class="preview-stat-label">Total Rooms</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">128</div>
+                  <div class="preview-stat-label">Available</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">22</div>
+                  <div class="preview-stat-label">Occupied</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-actions">
+            <a href="screens/admin/04-rooms.html" target="_blank" class="btn btn-primary"><div class="icon icon-search" style="width:16px;height:16px;margin-right:4px"></div>View Full</a>
+            <a href="screens/admin/05-guests.html" target="_blank" class="btn btn-secondary">→ Guests</a>
+          </div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-header"><div class="screen-icon"><div class="icon icon-user" style="width:24px;height:24px"></div></div><h3 class="screen-title">Guest Management</h3></div>
+          <div class="screen-preview">
+            <div class="screen-preview-content">
+              <div>
+                <div class="preview-header">
+                  <div class="preview-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: white;">
+                    <div class="icon icon-users"></div>
+                  </div>
+                  <div class="preview-title">
+                    <h4>Guest Management</h4>
+                    <p>Guest relations</p>
+                  </div>
+                </div>
+                <div class="preview-features">
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #26de81, #2bcbba); color: white;">👤</div>
+                    <span>Guest profiles</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #45aaf2, #4a90e2); color: white;">📝</div>
+                    <span>Preferences</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #feca57, #ff9f43); color: white;">🎯</div>
+                    <span>Loyalty tracking</span>
+                  </div>
+                </div>
+              </div>
+              <div class="preview-stats">
+                <div class="preview-stat">
+                  <div class="preview-stat-value">1,247</div>
+                  <div class="preview-stat-label">Total Guests</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">89%</div>
+                  <div class="preview-stat-label">Satisfaction</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">342</div>
+                  <div class="preview-stat-label">VIP Members</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-actions">
+            <a href="screens/admin/05-guests.html" target="_blank" class="btn btn-primary"><div class="icon icon-search" style="width:16px;height:16px;margin-right:4px"></div>View Full</a>
+            <a href="screens/admin/06-housekeeping.html" target="_blank" class="btn btn-secondary">→ Housekeeping</a>
+          </div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-header"><div class="screen-icon"><div class="icon icon-clean" style="width:24px;height:24px"></div></div><h3 class="screen-title">Housekeeping</h3></div>
+          <div class="screen-preview">
+            <div class="screen-preview-content">
+              <div>
+                <div class="preview-header">
+                  <div class="preview-icon" style="background: linear-gradient(135deg, #45aaf2, #4a90e2); color: white;">
+                    <div class="icon icon-clean"></div>
+                  </div>
+                  <div class="preview-title">
+                    <h4>Housekeeping</h4>
+                    <p>Operations management</p>
+                  </div>
+                </div>
+                <div class="preview-features">
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #26de81, #2bcbba); color: white;">🧹</div>
+                    <span>Task scheduling</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: white;">👥</div>
+                    <span>Staff management</span>
+                  </div>
+                  <div class="preview-feature">
+                    <div class="preview-feature-icon" style="background: linear-gradient(135deg, #feca57, #ff9f43); color: white;">✓</div>
+                    <span>Quality control</span>
+                  </div>
+                </div>
+              </div>
+              <div class="preview-stats">
+                <div class="preview-stat">
+                  <div class="preview-stat-value">24</div>
+                  <div class="preview-stat-label">Staff</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">45min</div>
+                  <div class="preview-stat-label">Avg Time</div>
+                </div>
+                <div class="preview-stat">
+                  <div class="preview-stat-value">100%</div>
+                  <div class="preview-stat-label">Inspected</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-actions">
+            <a href="screens/admin/06-housekeeping.html" target="_blank" class="btn btn-primary"><div class="icon icon-search" style="width:16px;height:16px;margin-right:4px"></div>View Full</a>
+            <a href="screens/admin/07-billing.html" target="_blank" class="btn btn-secondary">→ Billing</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="demo" class="content-section">
+      <div style="text-align:center;padding:60px 20px">
+        <h2 style="font-size:36px;font-weight:700;margin-bottom:20px">Start Your Journey</h2>
+        <p style="font-size:18px;color:var(--color-neutral-600);margin-bottom:40px">Experience the complete hotel management system</p>
+        
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:800px;margin:0 auto">
+          <a href="screens/guest/01-landing.html" target="_blank" class="btn btn-primary" style="padding:20px;font-size:16px">
+            <div class="icon icon-home" style="width:20px;height:20px;margin-right:8px"></div>Start as Guest
+          </a>
+          <a href="screens/admin/01-login.html" target="_blank" class="btn btn-secondary" style="padding:20px;font-size:16px">
+            <div class="icon icon-settings" style="width:20px;height:20px;margin-right:8px"></div>Admin Dashboard
+          </a>
+        </div>
+        
+        <div style="margin-top:60px;padding:40px;background:var(--color-neutral-50);border-radius:24px;border:1px solid var(--color-neutral-200)">
+          <h3 style="font-size:24px;font-weight:600;margin-bottom:20px;color:var(--color-neutral-900)">Mobile Experience</h3>
+          <p style="margin-bottom:20px;color:var(--color-neutral-600)">Try our mobile-optimized guest app</p>
+          <a href="screens/guest/15-mobile-guest.html" target="_blank" class="btn btn-primary">
+            <div class="icon icon-mobile" style="width:16px;height:16px;margin-right:8px"></div>Open Mobile App
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="tech-stack">
+      <span class="tech-badge"><div class="icon icon-home" style="width:16px;height:16px;margin-right:4px"></div>Royal Deep Purple</span>
+      <span class="tech-badge"><div class="icon icon-chart" style="width:16px;height:16px;margin-right:4px"></div>Vibrant Icons</span>
+      <span class="tech-badge"><div class="icon icon-mobile" style="width:16px;height:16px;margin-right:4px"></div>Responsive Design</span>
+      <span class="tech-badge"><div class="icon icon-settings" style="width:16px;height:16px;margin-right:4px"></div>Modern CSS</span>
+      <span class="tech-badge"><div class="icon icon-key" style="width:16px;height:16px;margin-right:4px"></div>End-to-End Flow</span>
+      <span class="tech-badge"><div class="icon icon-check" style="width:16px;height:16px;margin-right:4px"></div>Urbanistactive Demo</span>
+    </div>
+  </div>
+  
+  <script>
+    function showSection(sectionId) {
+      document.querySelectorAll('.content-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      document.getElementById(sectionId).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>

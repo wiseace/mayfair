@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Your Booking - Mayfair Hotel</title>
+  <link rel="stylesheet" href="../../design-system/tokens.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&family=Urbanist+Display:wght@600&display=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Urbanist',sans-serif;background:var(--color-neutral-50);color:var(--color-neutral-800);min-height:100vh}
+    .header{padding:16px 60px;display:flex;justify-content:space-between;align-items:center;background:#fff;border-bottom:1px solid var(--color-neutral-100)}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none}.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--color-primary-700),var(--color-primary-500));border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Urbanist',sans-serif;font-size:20px;font-weight:700}.logo-text{font-family:'Urbanist',sans-serif;font-size:22px;font-weight:600;color:var(--color-neutral-900)}
+    .steps{display:flex;align-items:center;gap:8px}.step{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--color-neutral-400)}.step.active{color:var(--color-neutral-800);font-weight:600}.step.completed{color:var(--color-icon-green)}.step-num{width:28px;height:28px;border-radius:50%;border:2px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}.step.active .step-num{background:var(--color-neutral-700);color:#fff;border-color:var(--color-neutral-700)}.step.completed .step-num{background:var(--color-icon-green);color:#fff;border-color:var(--color-icon-green)}.step-line{width:40px;height:2px;background:var(--color-neutral-200)}.step-line.active{background:var(--color-neutral-300)}
+    .main{max-width:1200px;margin:0 auto;padding:40px 60px;display:grid;grid-template-columns:1fr 400px;gap:40px}
+    .form-section{background:#fff;border-radius:20px;padding:32px;margin-bottom:24px;border:1px solid var(--color-neutral-100)}
+    .section-header{display:flex;align-items:center;gap:12px;margin-bottom:24px}.section-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff}.section-icon.purple{background:linear-gradient(135deg,#a55eea,#8854d0)}.section-icon.teal{background:linear-gradient(135deg,#2bcbba,#26de81)}.section-icon.coral{background:linear-gradient(135deg,#ff6b6b,#ee5a5a)}.section-icon svg{width:22px;height:22px}.section-title{font-size:18px;font-weight:600;color:var(--color-neutral-900)}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.form-group{display:flex;flex-direction:column;gap:8px}.form-group.full{grid-column:span 2}.form-label{font-size:13px;font-weight:600;color:var(--color-neutral-600)}.form-input{padding:14px 16px;border:2px solid var(--color-neutral-200);border-radius:12px;font-size:15px;transition:all .2s;outline:none}.form-input:focus{border-color:var(--color-neutral-500);box-shadow:0 0 0 4px rgba(0,0,0,.1)}.form-input::placeholder{color:var(--color-neutral-400)}
+    .form-select{padding:14px 16px;border:2px solid var(--color-neutral-200);border-radius:12px;font-size:15px;background:#fff;cursor:pointer}
+    .checkbox-row{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--color-neutral-50);border-radius:12px;cursor:pointer}.checkbox{width:22px;height:22px;border:2px solid var(--color-neutral-300);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}.checkbox.checked{background:var(--color-neutral-700);border-color:var(--color-neutral-700)}.checkbox.checked svg{color:#fff}.checkbox-content{flex:1}.checkbox-title{font-size:14px;font-weight:500;color:var(--color-neutral-800)}.checkbox-desc{font-size:13px;color:var(--color-neutral-500);margin-top:2px}
+    .special-requests textarea{width:100%;height:100px;padding:14px 16px;border:2px solid var(--color-neutral-200);border-radius:12px;font-size:15px;resize:none;font-family:inherit}
+    .summary-card{background:#fff;border-radius:20px;padding:28px;position:sticky;top:24px;border:1px solid var(--color-neutral-100)}
+    .summary-room{display:flex;gap:16px;padding-bottom:20px;border-bottom:1px solid var(--color-neutral-100);margin-bottom:20px}.room-thumb{width:100px;height:80px;border-radius:12px;object-fit:cover}.room-info h3{font-size:16px;font-weight:600;color:var(--color-neutral-900);margin-bottom:4px}.room-info p{font-size:13px;color:var(--color-neutral-500)}
+    .summary-dates{display:flex;justify-content:space-between;padding:16px;background:var(--color-neutral-50);border-radius:12px;margin-bottom:20px}.summary-date{text-align:center}.summary-date-label{font-size:11px;font-weight:600;color:var(--color-neutral-500);text-transform:uppercase}.summary-date-value{font-size:14px;font-weight:500;color:var(--color-neutral-800);margin-top:4px}.summary-arrow{color:var(--color-neutral-400)}
+    .summary-row{display:flex;justify-content:space-between;font-size:14px;margin-bottom:12px}.summary-row span:first-child{color:var(--color-neutral-600)}.summary-row span:last-child{font-weight:500}.summary-total{display:flex;justify-content:space-between;padding-top:16px;border-top:2px solid var(--color-neutral-200);font-size:18px;font-weight:700;margin-top:8px}
+    .continue-btn{width:100%;padding:18px;background:var(--color-neutral-800);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:600;cursor:pointer;margin-top:24px;transition:all .2s}.continue-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    .secure-note{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;font-size:13px;color:var(--color-neutral-500)}.secure-note svg{color:var(--color-icon-green)}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="01-landing.html" class="logo"><div class="logo-icon">M</div><span class="logo-text">Mayfair</span></a>
+    <div class="steps">
+      <div class="step completed"><div class="step-num"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Room</span></div>
+      <div class="step-line active"></div>
+      <div class="step active"><div class="step-num">2</div><span>Details</span></div>
+      <div class="step-line"></div>
+      <div class="step"><div class="step-num">3</div><span>Payment</span></div>
+      <div class="step-line"></div>
+      <div class="step"><div class="step-num">4</div><span>Confirm</span></div>
+    </div>
+    <div style="width:120px"></div>
+  </header>
+  <main class="main">
+    <div class="forms">
+      <div class="form-section">
+        <div class="section-header"><div class="section-icon purple"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><h2 class="section-title">Guest Information</h2></div>
+        <div class="form-grid">
+          <div class="form-group"><label class="form-label">First Name *</label><input type="text" class="form-input" placeholder="John"></div>
+          <div class="form-group"><label class="form-label">Last Name *</label><input type="text" class="form-input" placeholder="Smith"></div>
+          <div class="form-group"><label class="form-label">Email Address *</label><input type="email" class="form-input" placeholder="john@example.com"></div>
+          <div class="form-group"><label class="form-label">Phone Number *</label><input type="tel" class="form-input" placeholder="+1 (555) 000-0000"></div>
+          <div class="form-group"><label class="form-label">Country</label><select class="form-select"><option>United States</option><option>United Kingdom</option><option>Canada</option></select></div>
+          <div class="form-group"><label class="form-label">City</label><input type="text" class="form-input" placeholder="New York"></div>
+        </div>
+      </div>
+      <div class="form-section">
+        <div class="section-header"><div class="section-icon teal"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><h2 class="section-title">Booking Preferences</h2></div>
+        <div class="checkbox-row"><div class="checkbox checked"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="checkbox-content"><div class="checkbox-title">Early check-in (subject to availability)</div><div class="checkbox-desc">We'll do our best to have your room ready before 3:00 PM</div></div></div>
+        <div class="checkbox-row" style="margin-top:12px"><div class="checkbox"></div><div class="checkbox-content"><div class="checkbox-title">Late check-out (+$50)</div><div class="checkbox-desc">Extend your stay until 2:00 PM on checkout day</div></div></div>
+        <div class="checkbox-row" style="margin-top:12px"><div class="checkbox"></div><div class="checkbox-content"><div class="checkbox-title">Airport transfer (+$75)</div><div class="checkbox-desc">Private car pickup from the airport</div></div></div>
+      </div>
+      <div class="form-section">
+        <div class="section-header"><div class="section-icon coral"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h2 class="section-title">Special Requests</h2></div>
+        <div class="special-requests"><textarea class="form-input" placeholder="Let us know if you have any special requests (dietary requirements, accessibility needs, celebrations, etc.)"></textarea></div>
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-room"><img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=200&q=80" class="room-thumb" alt="Room"><div class="room-info"><h3>City View Deluxe King</h3><p>Deluxe Room • 35 m²</p><p style="margin-top:8px;display:flex;align-items:center;gap:4px"><svg width="14" height="14" fill="#feca57" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><strong>4.9</strong> (128)</p></div></div>
+      <div class="summary-dates"><div class="summary-date"><div class="summary-date-label">Check-in</div><div class="summary-date-value">Mon, Jan 27</div></div><svg class="summary-arrow" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg><div class="summary-date"><div class="summary-date-label">Check-out</div><div class="summary-date-value">Thu, Jan 30</div></div></div>
+      <div class="summary-row"><span>$289 × 3 nights</span><span>$867</span></div>
+      <div class="summary-row"><span>Early check-in</span><span>Free</span></div>
+      <div class="summary-row"><span>Service fee</span><span>$52</span></div>
+      <div class="summary-row"><span>Taxes (12%)</span><span>$110</span></div>
+      <div class="summary-total"><span>Total</span><span>$1,029</span></div>
+      <button class="continue-btn">Continue to Payment</button>
+      <div class="secure-note"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Your information is secure and encrypted</div>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Concierge - Mayfair Hotel</title>
+  <link rel="stylesheet" href="../../design-system/tokens.css">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&family=Urbanist+Display:wght@600&display=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swapdisplay=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Urbanist',sans-serif;background:var(--color-neutral-50);color:var(--color-neutral-800)}
+    .header{padding:16px 60px;display:flex;justify-content:space-between;align-items:center;background:#fff;border-bottom:1px solid var(--color-neutral-100);position:sticky;top:0;z-index:100}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none}.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--color-primary-700),var(--color-primary-500));border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Urbanist',sans-serif;font-size:20px;font-weight:700}.logo-text{font-family:'Urbanist',sans-serif;font-size:22px;font-weight:600;color:var(--color-neutral-900)}
+    .main{max-width:1100px;margin:0 auto;padding:40px 60px}
+    .page-header{text-align:center;margin-bottom:48px}.page-title{font-family:'Urbanist',sans-serif;font-size:36px;font-weight:600;color:var(--color-neutral-900);margin-bottom:12px}.page-subtitle{font-size:16px;color:var(--color-neutral-500)}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px}
+    .service-card{background:#fff;border-radius:24px;padding:32px;text-align:center;transition:all .3s;cursor:pointer;border:2px solid transparent}.service-card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,.1);border-color:var(--color-primary-200)}
+    .service-icon{width:72px;height:72px;border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}.service-icon.coral{background:linear-gradient(135deg,#ff6b6b,#ee5a5a)}.service-icon.teal{background:linear-gradient(135deg,#2bcbba,#26de81)}.service-icon.blue{background:linear-gradient(135deg,#45aaf2,#4a90e2)}.service-icon.orange{background:linear-gradient(135deg,#ff9f43,#feca57)}.service-icon.purple{background:linear-gradient(135deg,#a55eea,#8854d0)}.service-icon.pink{background:linear-gradient(135deg,#fd79a8,#e84393)}.service-icon svg{width:32px;height:32px;color:#fff}
+    .service-title{font-size:18px;font-weight:600;color:var(--color-neutral-900);margin-bottom:8px}
+    .service-desc{font-size:14px;color:var(--color-neutral-500);line-height:1.6}
+    .featured{background:#fff;border-radius:24px;padding:40px;margin-bottom:48px}
+    .featured-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}.featured-title{font-size:22px;font-weight:600;color:var(--color-neutral-900)}.view-all{font-size:14px;color:var(--color-neutral-800);text-decoration:none;font-weight:600;display:flex;align-items:center;gap:4px}
+    .experiences{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .exp-card{border-radius:20px;overflow:hidden;position:relative;height:280px;cursor:pointer}.exp-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s}.exp-card:hover img{transform:scale(1.1)}
+    .exp-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.8) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px}
+    .exp-badge{position:absolute;top:16px;left:16px;padding:6px 12px;background:#fff;border-radius:8px;font-size:12px;font-weight:600;color:var(--color-neutral-800)}
+    .exp-title{font-size:18px;font-weight:600;color:#fff;margin-bottom:4px}
+    .exp-price{font-size:14px;color:rgba(255,255,255,.8)}
+    .chat-section{background:var(--color-neutral-800);border-radius:24px;padding:48px;display:flex;align-items:center;gap:48px;color:#fff}
+    .chat-content{flex:1}.chat-title{font-family:'Urbanist',sans-serif;font-size:28px;font-weight:600;margin-bottom:12px}.chat-desc{font-size:16px;opacity:.9;line-height:1.6;margin-bottom:24px}
+    .chat-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;background:#fff;color:var(--color-neutral-800);border-radius:14px;font-size:15px;font-weight:600;text-decoration:none;transition:all .2s}.chat-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.2)}
+    .chat-avatar{width:180px;height:180px;border-radius:50%;background:#fff;padding:8px;flex-shrink:0}.chat-avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+    .contact-row{display:flex;gap:16px;margin-top:24px}
+    .contact-item{display:flex;align-items:center;gap:8px;padding:12px 20px;background:rgba(255,255,255,.15);border-radius:10px;font-size:14px}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="01-landing.html" class="logo"><div class="logo-icon">M</div><span class="logo-text">Mayfair</span></a>
+    <div style="display:flex;gap:16px">
+      <a href="07-my-bookings.html" style="text-decoration:none;color:var(--color-neutral-600);font-size:14px;font-weight:500">My Stay</a>
+      <a href="10-room-services.html" style="text-decoration:none;color:var(--color-neutral-600);font-size:14px;font-weight:500">Room Service</a>
+    </div>
+  </header>
+  <main class="main">
+    <div class="page-header">
+      <h1 class="page-title">How Can We Help You?</h1>
+      <p class="page-subtitle">Your personal concierge is here to make your stay unforgettable</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card"><div class="service-icon coral"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div><div class="service-title">Wake-Up Call</div><div class="service-desc">Schedule your morning wake-up call at your preferred time</div></div>
+      <div class="service-card"><div class="service-icon teal"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="service-title">Transportation</div><div class="service-desc">Airport transfers, car rentals, and private drivers</div></div>
+      <div class="service-card"><div class="service-icon blue"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="7.5 4.21 12 6.81 16.5 4.21"/><polyline points="7.5 19.79 7.5 14.6 3 12"/><polyline points="21 12 16.5 14.6 16.5 19.79"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><div class="service-title">Luggage Storage</div><div class="service-desc">Secure storage before check-in or after checkout</div></div>
+      <div class="service-card"><div class="service-icon orange"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="service-title">Local Recommendations</div><div class="service-desc">Best restaurants, attractions, and hidden gems nearby</div></div>
+      <div class="service-card"><div class="service-icon purple"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="service-title">Reservations</div><div class="service-desc">Restaurant bookings, show tickets, and special events</div></div>
+      <div class="service-card"><div class="service-icon pink"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="service-title">Special Occasions</div><div class="service-desc">Birthday surprises, anniversaries, and celebrations</div></div>
+    </div>
+    <div class="featured">
+      <div class="featured-header"><h2 class="featured-title">Curated Experiences</h2><a href="#" class="view-all">View All<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a></div>
+      <div class="experiences">
+        <div class="exp-card"><img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=400&q=80" alt="Spa"><div class="exp-overlay"><span class="exp-badge">Most Booked</span><div class="exp-title">Signature Spa Package</div><div class="exp-price">From $180 per person</div></div></div>
+        <div class="exp-card"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80" alt="Dinner"><div class="exp-overlay"><span class="exp-badge">Fine Dining</span><div class="exp-title">Chef's Table Experience</div><div class="exp-price">From $250 per couple</div></div></div>
+        <div class="exp-card"><img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&q=80" alt="Tour"><div class="exp-overlay"><span class="exp-badge">Adventure</span><div class="exp-title">Private City Tour</div><div class="exp-price">From $120 per person</div></div></div>
+      </div>
+    </div>
+    <div class="chat-section">
+      <div class="chat-content">
+        <h2 class="chat-title">Chat with Your Personal Concierge</h2>
+        <p class="chat-desc">Sarah is your dedicated concierge during your stay. Available 24/7 to assist with any request, big or small.</p>
+        <a href="#" class="chat-btn"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Start Chat</a>
+        <div class="contact-row">
+          <div class="contact-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Dial 0</div>
+          <div class="contact-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>concierge@mayfair.com</div>
+        </div>
+      </div>
+      <div class="chat-avatar"><img src="https://i.pravatar.cc/200?img=5" alt="Concierge"></div>
+    </div>
+  </main>
+</body>
+</html>
